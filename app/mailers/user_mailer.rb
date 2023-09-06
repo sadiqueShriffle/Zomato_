@@ -1,8 +1,8 @@
 class UserMailer < ApplicationMailer
   
-  def user_email
+  def welcome_email
     @user = params[:user]
-    mail(to: @user.email, subject: "Welcome !!",body: 'something')
+    mail(to: @user.email, subject: "Welcome !!")
   end
 
 end

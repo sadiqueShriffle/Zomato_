@@ -72,7 +72,7 @@ Rails.application.configure do
 
 # config/environments/development.rb
 config.action_mailer.raise_delivery_errors = false
-config.action_mailer.perform_caching = false
+config.action_mailer.perform_caching = true
 
 config.action_mailer.delivery_method = :smtp
 config.action_mailer.default_url_options = { 
@@ -84,16 +84,7 @@ config.action_mailer.smtp_settings = {
 :port => 587,
 :domain =>   'shriffle.com',
 :user_name => 'sadiquea@shriffle.com',
-:password => '4520 3940
-9147 6510
-0039 7323
-5606 1219
-6752 4184
-2105 2773
-2781 2558
-7115 9371
-0589 5614
-1080 9963',
+:password => 'ffpfrdnokjaeepao',
 :authentication => 'plain',
 :enable_starttls_auto => true,
 :openssl_verify_mode => :none
