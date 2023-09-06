@@ -83,10 +83,6 @@ class DishesController < ApplicationController
     params.require(:dish).permit(:name ,:price ,:dish_type,images: [])
   end 
 
-  # def find_dish_id
-  #   @dish = @current_user.dishes(params[:id])
-  # end
-
 end
 
 

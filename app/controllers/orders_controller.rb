@@ -2,7 +2,6 @@ class OrdersController < ApplicationController
   skip_before_action :owner_check
   before_action :set_order, only: [:show, :update, :destroy]
 
-
   def index
     orders = @current_user.orders.includes(:order_items)
     return  render json: orders unless orders.empty?

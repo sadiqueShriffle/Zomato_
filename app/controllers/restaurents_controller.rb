@@ -5,7 +5,6 @@ class RestaurentsController < ApplicationController
 	before_action :set_values , only: [:show,:update , :destroy]
 
 	def index
-		@current_user
 		return render json: @current_user.restaurents if @current_user.owner?
 		restaurent = Restaurent.where(status: 'open')
 		render json: restaurent
