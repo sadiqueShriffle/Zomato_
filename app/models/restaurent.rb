@@ -18,7 +18,7 @@ class Restaurent < ApplicationRecord
 
 	def owner_only_add_restaurent
 		unless user.type == "Owner"
-		errors.add(:base, "Only Owner have permission to add Restaurents.")      
+			errors.add(:base, "Only Owner have permission to add Restaurents.")      
 		end
 	end
 	
