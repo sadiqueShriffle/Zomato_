@@ -17,7 +17,6 @@ class DishesController < ApplicationController
     dish = @current_user.restaurents.find(restaurant).categories.find(category).dishes.new(dish_params)
     return render json: dish ,state:200 if dish.save
     render json: [@user.errors], status: :unprocessable_entity
-
   end
 
   def update
@@ -40,7 +39,6 @@ class DishesController < ApplicationController
       return render json: Dish.all if @current_user.customer?
       render json: @current_user.dishes 
     end
-   
   end
 
   def filter_by_category

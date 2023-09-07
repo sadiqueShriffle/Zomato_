@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    order = @current_user.orders.find_by_id(params[:id])
+    order = @current_user.orders.find(params[:id])
     render json: order, state:200
   end
 
@@ -17,10 +17,9 @@ class OrdersController < ApplicationController
     order = @current_user.orders.new(order_item_params)
     @current_user.cart_items.each do |cart_item|
     order.order_items.new(dish_id: cart_item.dish_id, quantity: cart_item.quantity)
-  end
-
-  if order.save
-    @current_user.cart.cart_items.destroy_all
+    end
+    if order.save
+      @current_user.cart.cart_items.destroy_all
       render json: order, status: :created
     else
       render json: order.errors, status: :unprocessable_entity
