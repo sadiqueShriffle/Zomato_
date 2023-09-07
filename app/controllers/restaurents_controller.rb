@@ -5,8 +5,8 @@ class RestaurentsController < ApplicationController
 	before_action :set_values , only: [:show,:update , :destroy]
 
 	def index
-		return render json: @current_user.restaurents if @current_user.owner?
-		restaurent = Restaurent.where(status: 'open')
+		return render json: @current_user.restaurents.paginate(page: params[:page], per_page: 1) if @current_user.owner?
+		restaurent = Restaurent.where(status: 'open').paginate(page: params[:page], per_page: 2)
 		render json: restaurent
 	end
 

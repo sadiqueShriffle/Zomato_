@@ -3,9 +3,12 @@ class DishesController < ApplicationController
   skip_before_action :customer_check 
   
   def show
-    dish = Dish.all 
-    return  render json: dish  if @current_user.customer?
-    render json: @current_user.categories, include: :dishes
+    if  @current_user.customer?
+    dish = Dish.paginate(page: params[:page], per_page: 2)  
+    else
+    dish = @current_user.dishes.paginate(page: params[:page], per_page: 2)
+    end
+    render json: dish, status:200
   end
 
   def create
