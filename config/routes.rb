@@ -1,4 +1,6 @@
 Rails.application.routes.draw  do
+  root 'users#welcome'
+
   # User routes
   post '/login', to: 'authentication#login'
   post "/signup", to: "users#create"

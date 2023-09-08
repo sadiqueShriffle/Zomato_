@@ -70,6 +70,8 @@ group :development do
   gem 'active_model_serializers'
   gem 'kaminari'
   gem 'will_paginate'
+  gem 'rubocop'
+
 end
 
 group :test do

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<body>
+  <div class="login-container">
+    <div class="flash-notice"><%= flash[:notice] %></div>
+    <h1>Zomato</h1>
+    <form class="login-form" action="/login" method="post">
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password">
+      <input type="submit" value="Login">
+    </form>
+  </div>
+</body>
+</html>

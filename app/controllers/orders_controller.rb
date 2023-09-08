@@ -19,6 +19,7 @@ class OrdersController < ApplicationController
     order.order_items.new(dish_id: cart_item.dish_id, quantity: cart_item.quantity)
     end
     if order.save
+      # OrderMailer.with(user: @current_user).welcome_email.deliver
       @current_user.cart.cart_items.destroy_all
       render json: order, status: :created
     else

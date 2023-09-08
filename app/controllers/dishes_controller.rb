@@ -1,5 +1,5 @@
 class DishesController < ApplicationController
-  skip_before_action :owner_check ,only: [:index,:show ,:search_dish,:filter_by_category,:update]
+  skip_before_action :owner_check ,only: [:show ,:search_dish,:filter_by_category]
   skip_before_action :customer_check 
 
   def show
