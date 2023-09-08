@@ -65,6 +65,11 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
   gem "letter_opener"
+
+  gem "byebug"
+  gem 'active_model_serializers'
+  gem 'kaminari'
+  gem 'will_paginate'
 end
 
 group :test do
@@ -73,8 +78,4 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-gem "byebug"
-gem 'active_model_serializers'
-gem 'kaminari'
 
-gem 'will_paginate'

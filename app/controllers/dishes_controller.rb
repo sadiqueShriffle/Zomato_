@@ -1,15 +1,24 @@
 class DishesController < ApplicationController
-  skip_before_action :owner_check ,only: [:show ,:search_dish,:filter_by_category,:update]
+  skip_before_action :owner_check ,only: [:index,:show ,:search_dish,:filter_by_category,:update]
   skip_before_action :customer_check 
-  
+
   def show
-    if  @current_user.customer?
-    dish = Dish.paginate(page: params[:page], per_page: 2)  
+    if params[:name].present? && params[:restaurent_id].present?
+      dish=filter_by_category
+    elsif params[:name].present?
+      dish=search_by_name
+    elsif params[:restaurent_id].present?
+      dish=search_by_restaurent_id    
     else
-    dish = @current_user.dishes.paginate(page: params[:page], per_page: 2)
+      if @current_user.customer?
+        dish= Dish.all 
+      else
+        dish= @current_user.dishes 
+      end
     end
-    render json: dish, status:200
+     render json: dish.paginate(page: params[:page], per_page: 5)
   end
+  
 
   def create
     restaurant = params[:restaurent_id]
@@ -30,54 +39,32 @@ class DishesController < ApplicationController
   end
 
 
-  def search_dish
-    if params[:name].present? 
-      search_by_name
-    elsif params[:restaurent_id].present?
-      search_by_restaurent_id    
-    else
-      return render json: Dish.all if @current_user.customer?
-      render json: @current_user.dishes 
-    end
+
+  private
+  def search_by_restaurent_id 
+    restaurent_id = params[:restaurent_id]
+    return render json: 'Empty Restaurent ID' unless restaurent_id.present?
+    restaurent=Restaurent.find(restaurent_id).dishes
+    return restaurent
   end
 
   def filter_by_category
     if @current_user.owner?
       owner_dish = @current_user.categories.where("categories.name ILIKE ?", "%#{params[:name].strip}%")
-      return render json: owner_dish || [], status: 200
+      return owner_dish
     end
     custoemr_dish = Category.where("name ILIKE ?", "%#{params[:name].strip}%")
-    render json: customer_dish || [], status: 200
-  end
-
-  private
-  def search_by_name
-    name = params[:name]
-    return render json: 'Name Cannot be blank' if name.blank?
-    if @current_user.owner?
-      owner_dish
-      else
-        customer_dish
-    end
-  end
-
-  def search_by_restaurent_id 
-    restaurent_id = params[:restaurent_id]
-    return render json: 'Empty Restaurent ID' unless restaurent_id.present?
-    restaurent=Restaurent.find(restaurent_id).dishes
-    render json: restaurent ,status:200
+    return customer_dish
   end
 
   def owner_dish
     ow_dish= @current_user.dishes.where("dishes.name ILIKE ?", "%#{params[:name].strip}%")
-    return render json: ow_dish unless ow_dish.empty?
-    render json: 'No matching result found'
+    return ow_dish 
   end
 
   def customer_dish
-    ow_dish= @current_user.dishes.where("dishes.name ILIKE ?", "%#{params[:name].strip}%")
-    return render json: cu_dish unless cu_dish.empty?
-    render json: 'No matching result found'
+    cu_dish= Dish.where("dishes.name ILIKE ?", "%#{params[:name].strip}%")
+    return cu_dish 
   end
 
   def dish_params

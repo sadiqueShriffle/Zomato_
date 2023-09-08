@@ -36,7 +36,7 @@ class OrdersController < ApplicationController
 
   def destroy
     @order.destroy
-    head :no_content
+    render json: "Order deleted Successfully", status:200
   end
 
   private
