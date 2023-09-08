@@ -71,7 +71,6 @@ group :development do
   gem 'kaminari'
   gem 'will_paginate'
   gem 'rubocop'
-
 end
 
 group :test do

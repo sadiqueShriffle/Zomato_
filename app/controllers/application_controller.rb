@@ -1,8 +1,8 @@
-class ApplicationController < ActionController::API
+class ApplicationController < ActionController::Base
   include JwtToken
-  before_action :authenticate_user
-  before_action :owner_check
-  before_action :customer_check
+  before_action :authenticate_user, except: :login
+  before_action :check_customer, except: :login
+  before_action :check_owner, except: :login
 
   rescue_from ActiveRecord::RecordNotFound, with: :handle_exception
   rescue_from NoMethodError, with: :handle_pram_exception
@@ -11,19 +11,34 @@ class ApplicationController < ActionController::API
     ActiveStorage::Current.url_options = { protocol: request.protocol, host: request.host, port: request.port }
   end
 
-  private 
+    def login
+    @user = User.find_by(email: params[:email])
+      if @user&.authenticate(params[:password])
+        session[:current_user]= jwt_encode({user_id: @user.id})
+      else
+        render json: { error: 'Unauthorized' }, status: :unauthorized
+      end
+    end
+
+
+  def logout
+    session.delete(:current_user)
+    @current_user =nil
+  end
+
+
+  private
   def authenticate_user
     header = request.headers['Authorization']
     header = header.split(' ').last if header
     begin
-      @decoded = jwt_decode(header)
-      @current_user = User.find(@decoded[:user_id])
-    rescue ActiveRecord::RecordNotFound => e
-      render json: { error: "User not found" }, status: :unauthorized
-    rescue JWT::DecodeError => e  
-      render json: { error: "Login First" }, status: :unauthorized 
+      decoded = jwt_decode(header)
+      @current_user = User.find(decoded[:user_id])
+    rescue JWT::DecodeError => e
+      render json: { error: e.message }, status: :unauthorized
     end
   end
+
 
   def owner_check
     unless @current_user.owner?
@@ -38,7 +53,6 @@ class ApplicationController < ActionController::API
   end
 
 
-  
   def handle_exception
     render json: { error: 'Invalid Id ' }, status:404
   end
@@ -48,3 +62,16 @@ class ApplicationController < ActionController::API
   end
 
 end
+
+  # def authenticate_user
+  #   header = request.headers['Authorization']
+  #   header = header.split(' ').last if header
+  #   begin
+  #     @decoded = jwt_decode(header)
+  #     @current_user = User.find(@decoded[:user_id])
+  #   rescue ActiveRecord::RecordNotFound => e
+  #     render json: { error: "User not found" }, status: :unauthorized
+  #   rescue JWT::DecodeError => e  
+  #     render json: { error: "Login First" }, status: :unauthorized 
+  #   end
+  # end

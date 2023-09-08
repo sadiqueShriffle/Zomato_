@@ -1,8 +1,9 @@
 Rails.application.routes.draw  do
-  root 'users#welcome'
+
+  root 'users#login'
 
   # User routes
-  post '/login', to: 'authentication#login'
+  post 'users/login', to: 'application#login'
   post "/signup", to: "users#create"
   resource :user,  except: :create
 
