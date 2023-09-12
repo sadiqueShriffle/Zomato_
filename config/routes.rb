@@ -1,9 +1,12 @@
 Rails.application.routes.draw  do
 
-  root 'users#login'
+  devise_for :users
+
+  root 'users#login '
 
   # User routes
-  post 'users/login', to: 'application#login'
+  # post '/login', to: 'application#login'
+
   post "/signup", to: "users#create"
   resource :user,  except: :create
 

@@ -1,20 +1,13 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_user, only: [:create, :welcome]
+  # skip_before_action :authenticate_user, only: [:create]
 
   # skip_before_action :customer_check
   # skip_before_action :check_owner
 
+  def login; end
 
   def show
-    render json: @current_user
-  end
-
-
-  def login;
-
-  end
-
-  def welcome;
+    # @user = @current_user
     byebug
   end
 
