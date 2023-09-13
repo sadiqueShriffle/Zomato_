@@ -4,8 +4,14 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   protect_from_forgery prepend: true
-  # before_action :check_customer, except: :login
-  # before_action :check_owner, except: :login
+
+  before_action :current_user , except: [:sign_in,:sign_out]
+  
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :type , :password])
+  end
 
 
   rescue_from ActiveRecord::RecordNotFound, with: :handle_exception
@@ -28,7 +34,7 @@ class ApplicationController < ActionController::Base
 
   # def logout
   #   session.delete(:current_user)
-  #   @current_user =nil
+  #   current_user =nil
   # end
 
 
@@ -38,7 +44,7 @@ class ApplicationController < ActionController::Base
   #   header = header.split(' ').last if header
   #   begin
   #     decoded = jwt_decode(header)
-  #     @current_user = User.find(decoded[:user_id])
+  #     current_user = User.find(decoded[:user_id])
   #   rescue JWT::DecodeError => e
   #     render json: { error: e.message }, status: :unauthorized
   #   end
@@ -47,13 +53,13 @@ class ApplicationController < ActionController::Base
 
 
   def owner_check
-    unless @current_user.owner?
+    unless current_user.owner?
       render json: {error: 'Owner not found..'}
     end
   end
 
   def customer_check
-    unless @current_user.customer?
+    unless current_user.customer?
       render json: {error: 'Customer not found..'}
     end
   end
@@ -74,7 +80,7 @@ end
   #   header = header.split(' ').last if header
   #   begin
   #     @decoded = jwt_decode(header)
-  #     @current_user = User.find(@decoded[:user_id])
+  #     current_user = User.find(@decoded[:user_id])
   #   rescue ActiveRecord::RecordNotFound => e
   #     render json: { error: "User not found" }, status: :unauthorized
   #   rescue JWT::DecodeError => e  

@@ -4,10 +4,12 @@ class UsersController < ApplicationController
   # skip_before_action :customer_check
   # skip_before_action :check_owner
 
-  def login; end
+  def welcome
+    
+  end
 
   def show
-    # @user = @current_user
+    @user = @current_user
     byebug
   end
 

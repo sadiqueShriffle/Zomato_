@@ -1,8 +1,8 @@
  # db/seeds.rb
 
 # # Create users
-owner = User.create(name: 'sadique',email: 'owner@gmail.com', password: '12345', type: 'Owner')
-customer = User.create(name: 'mohit',email: 'customer@gmail.com', password: '12345',type: 'Customer')
+owner = User.create(name: 'sadique',email: 'owner@gmail.com', password: '123456',type: 'Owner')
+customer = User.create(name: 'mohit',email: 'customer@gmail.com', password: '123456',type: 'Customer')
 
 # # Create restaurents with categories and dishes
 restaurant1 = owner.restaurents.create(name: 'Restaurant 1', place: 'indore',status: 'open')
@@ -82,4 +82,3 @@ cart.cart_items.create(dish: dish1, quantity: 2)
 #     ]
 #   }
 # }
-

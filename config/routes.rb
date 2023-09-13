@@ -2,12 +2,12 @@ Rails.application.routes.draw  do
 
   devise_for :users
 
-  root 'users#login '
+  root 'restaurents#index'
 
   # User routes
   # post '/login', to: 'application#login'
 
-  post "/signup", to: "users#create"
+  # post "/signup", to: "users#create"
   resource :user,  except: :create
 
   # Restaurent routes

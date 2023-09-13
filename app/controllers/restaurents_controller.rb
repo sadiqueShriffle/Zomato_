@@ -1,32 +1,37 @@
 class RestaurentsController < ApplicationController
-	skip_before_action :customer_check
-	skip_before_action :owner_check , only: [:index,:search,:show]
 
-	before_action :set_values , only: [:show,:update , :destroy]
+	before_action :customer_check , only: :search
+	before_action :owner_check, except: [:index,:show]
+
+	before_action :set_values , only: [:show,:update , :destroy] 
 
 	def index
-		return render json: @current_user.restaurents.paginate(page: params[:page], per_page: 1) if @current_user.owner?
-		restaurent = Restaurent.where(status: 'open').paginate(page: params[:page], per_page: 2)
-		render json: restaurent
+		if current_user.owner?
+		 	@restaurents = current_user.restaurents
+		else
+			@restaurents = Restaurent.where(status: 'open')
+		end
+		@restaurens
+		# .paginate(page: params[:page], per_page: 2)
 	end
 
 	def show 
-		if @current_user.owner?
-			restaurent = @current_user.restaurents.includes(categories: :dishes).find(params[:id]) 
+		if current_user.owner?
+			@restaurent = current_user.restaurents.includes(categories: :dishes).find(params[:id]) 
 		else	
-			restaurent= Restaurent.find(params[:id])
+			@restaurent= Restaurent.find(params[:id])
 		end
-		render json: restaurent, status:200
+		# render json: restaurent, status:200
 	end
 
 	def new
-		@restaurent = @current_user.restaurents.new
+		@restaurent = current_user.restaurents.new
 		@restaurent.categories.new 
 		@restaurent.categories.each {|category| category.dishes.new}
 	end
 
 	def create
-		@restaurent = @current_user.restaurents.new(restaurent_params)
+		@restaurent = current_user.restaurents.new(restaurent_params)
 		if @restaurent.save
 			render json: @restaurent, status:200
 		else
@@ -40,8 +45,12 @@ class RestaurentsController < ApplicationController
 	end
 
 	def destroy
-		return render json: {message: " Restaurent Deleted successfully!!", data:@restaurent} if @restaurent.destroy
-		render json: {errors: @restaurent.errors.full_messages}, status: :unprocessable_entity
+		if @restaurent.destroy
+		# return render json: {message: " Restaurent Deleted successfully!!", data:@restaurent} 
+		# render json: {errors: @restaurent.errors.full_messages}, status: :unprocessable_entity
+	else
+		@restaurent
+	end
 	end
 
 	def search
