@@ -21,7 +21,6 @@ class RestaurentsController < ApplicationController
 		else	
 			@restaurent= Restaurent.find(params[:id])
 		end
-		# render json: restaurent, status:200
 	end
 
 	def new
@@ -33,10 +32,14 @@ class RestaurentsController < ApplicationController
 	def create
 		@restaurent = current_user.restaurents.new(restaurent_params)
 		if @restaurent.save
-			render json: @restaurent, status:200
+			redirect_to root_path
 		else
 			render json: 'Error While Creating Restaurent', status: :unprocessable_entity
 		end
+	end
+
+	def edit
+		@restaurrent=@restaurent.update(restaurent_params)
 	end
 
 	def update
@@ -73,7 +76,6 @@ class RestaurentsController < ApplicationController
 							:name,
 							:price,
 							:dish_type
-							
 						]
 				]
 		)

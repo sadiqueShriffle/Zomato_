@@ -4,9 +4,7 @@ class UsersController < ApplicationController
   # skip_before_action :customer_check
   # skip_before_action :check_owner
 
-  def welcome
-    
-  end
+  def welcome; end
 
   def show
     @user = @current_user
