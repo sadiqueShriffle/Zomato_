@@ -5,6 +5,6 @@
 <div>
   <%= link_to "Edit this restaurent", edit_restaurent_path(@restaurent) %> |
   <%= link_to "Back to restaurents", restaurents_path %> |
-  <%= link_to "Restaurent Dishes", dishes_path%>
+  <%= link_to "Restaurent Dishes", dishes_path(restaurent_id: @restaurent.id)%>
   <%= button_to "Destroy this restaurent", @restaurent, method: :delete %>
 </div>

@@ -3,7 +3,7 @@ class RestaurentsController < ApplicationController
 	before_action :customer_check , only: :search
 	before_action :owner_check, except: [:index,:show]
 
-	before_action :set_values , only: [:show,:update , :destroy] 
+	before_action :set_values , only: [:show,:update ,:destroy,:edit] 
 
 	def index
 		if current_user.owner?
@@ -39,13 +39,22 @@ class RestaurentsController < ApplicationController
 	end
 
 	def edit
-		@restaurrent=@restaurent.update(restaurent_params)
 	end
 
+	
 	def update
-		return render json: {message: " Updated successfully!!", data:@restaurent}	if @restaurent.update(restaurent_params)
-		render json: {errors: @restaurent.errors.full_messages}, status: :unprocessable_entity
-	end
+		byebug
+    respond_to do |format|
+      if @restaurent.update(restaurent_params)
+				byebug
+        format.html { redirect_to root_url, notice: "Restaurent was successfully updated." }
+        format.json { render :show, status: :ok, location: @restaurent }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @restaurent.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
 	def destroy
 		if @restaurent.destroy

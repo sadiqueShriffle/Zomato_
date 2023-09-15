@@ -1,5 +1,4 @@
 <%= form_with(model: restaurent) do |form| %>
-  <%byebug%>
   <% if restaurent.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(restaurent.errors.count, "error") %> prohibited this restaurent from being saved:</h2>

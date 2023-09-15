@@ -4,21 +4,25 @@ class DishesController < ApplicationController
   
   before_action :owner_check , except: :show
 
-  def show
+  def index
     if params[:name].present? && params[:restaurent_id].present?
-      @dish=filter_by_category
+      @dishes = filter_by_category
     elsif params[:name].present?
-      @dish=search_by_name
+      @dishes=search_by_name
     elsif params[:restaurent_id].present?
-      @dish=search_by_restaurent_id    
+      @dishes=search_by_restaurent_id    
     else
       if current_user.customer?
-        @dish= Dish.all 
+        @dishes= Dish.all 
       else
-        @dish= current_user.restaurens.joins(:dishes) 
+        @dishes= current_user
       end
     end
       # render json: @dish.paginate(page: params[:page], per_page: 2)
+  end
+
+  def show
+    @dish= current_user.dishes.find(params[:id])
   end
   
   def edit
