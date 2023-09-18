@@ -5,10 +5,21 @@
 <div id="dishes">
   <% @dishes.each do |dish| %>
     <%= render dish %>
+      <%if dish.image.attached?%>
+      no_images_available
+        <%  dish.image.url %> 
+      <%else%>
+      'no_images_available.jpg'
+      <%end%>
     <p>
       <%= link_to "Show this dish", dish %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New dish", new_dish_path %>
+<% if current_user.type == 'Owner'%>
+<%= link_to "New dish", new_dish_path(category_id: @dishes.first.category_id)%>
+<% end%>
+
+
+

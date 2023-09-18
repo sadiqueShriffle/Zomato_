@@ -1,9 +1,5 @@
 class UsersController < ApplicationController
-  # skip_before_action :authenticate_user, only: [:create]
-
-  # skip_before_action :customer_check
-  # skip_before_action :check_owner
-
+  
   def welcome; end
 
   def show

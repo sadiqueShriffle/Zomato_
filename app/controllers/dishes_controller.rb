@@ -1,8 +1,6 @@
-class DishesController < ApplicationController
-  # skip_before_action :owner_check ,only: [:show ,:search_dish,:filter_by_category]
-  # skip_before_action :customer_check 
-  
-  before_action :owner_check , except: :show
+class DishesController < ApplicationController  
+  before_action :owner_check , except: [ :index ,:show]
+  # before_action :set_value , only: [:edit,:update,:destroy]
 
   def index
     if params[:name].present? && params[:restaurent_id].present?
@@ -10,40 +8,42 @@ class DishesController < ApplicationController
     elsif params[:name].present?
       @dishes=search_by_name
     elsif params[:restaurent_id].present?
-      @dishes=search_by_restaurent_id    
+      @dishes=search_by_restaurent_id   
+    elsif params[:category_id].present?
+      @dishes=Category.find(params[:category_id]).dishes    
     else
       if current_user.customer?
         @dishes= Dish.all 
       else
-        @dishes= current_user
+        @dishes= current_user.dishes
       end
     end
       # render json: @dish.paginate(page: params[:page], per_page: 2)
   end
 
   def show
-    @dish= current_user.dishes.find(params[:id])
+    @dish= Dish.find(params[:id])
   end
   
   def edit
-
+    @dish = Dish.find(params[:id]).update(dish_params)
   end
 
   def new
-    @dish = current_user.restaurents.new
   end
 
   def create
-    restaurant = params[:restaurent_id]
-    category = params[:category_id]
-    @dish = current_user.restaurents.find(restaurant).categories.find(category).dishes.new(dish_params)
-    return render json: @dish ,state:200 if @dish.save
-    render json: [@current_user.errors], status: :unprocessable_entity
+    byebug
+    @dish = current_user.categories.find(params[:category_id]).dishes.new
+     if @dish.save
+      redirect_to dishes_path
+     end
   end
 
   def update
-    dish = current_user.restaurents.find(params[:restaurent_id]).categories.find(params[:category_id]).dishes.find(params[:dish_id]).update(dish_params)
-    render json: "Dish Updated Successfully", status:200
+    @dish = Dish.find(params[:id]).update(dish_params)
+    # @dish = current_user.dishes.find(params[:dish_id]).update(dish_params)
+    # render json: "Dish Updated Successfully", status:200
   end
 
   def destroy
@@ -81,9 +81,13 @@ class DishesController < ApplicationController
   end
 
   def dish_params
-    params.require(:dish).permit(:name ,:price ,:dish_type,images: [])
+    params.require(:dish).permit(:name ,:price ,:dish_type, :image)
   end 
 
-end
+  # def set_value
+  #   @dish = Dish.find(params[:id])
+  # end
+  
 
+end
 

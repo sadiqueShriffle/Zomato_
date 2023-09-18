@@ -22,8 +22,13 @@
   </div>
 
   <div>
-    <%= form.label :@dish_type, style: "display: block" %>
-    <%= form.text_field :@dish_type %>
+    <%= form.label :dish_type, style: "display: block" %>
+    <%= form.text_field :dish_type %>
+  </div>
+
+   <div>
+  <label for="image">Image</label>
+    <%= form.file_field :image, id: "image" %><br><br>
   </div>
 
   <div>

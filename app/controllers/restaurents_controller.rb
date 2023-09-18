@@ -58,11 +58,12 @@ class RestaurentsController < ApplicationController
 
 	def destroy
 		if @restaurent.destroy
+			redirect_to root_path
 		# return render json: {message: " Restaurent Deleted successfully!!", data:@restaurent} 
 		# render json: {errors: @restaurent.errors.full_messages}, status: :unprocessable_entity
-	else
-		@restaurent
-	end
+		else
+			@restaurent
+		end
 	end
 
 	def search

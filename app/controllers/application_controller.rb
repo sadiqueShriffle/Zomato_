@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
 
-  rescue_from ActiveRecord::RecordNotFound, with: :handle_exception
+  # rescue_from ActiveRecord::RecordNotFound, with: :handle_exception
   # rescue_from NoMethodError, with: :handle_pram_exception
 
   before_action do
@@ -65,9 +65,9 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def handle_exception
-    render json: { error: 'Invalid Id ' }, status:404
-  end
+  # def handle_exception
+  #   render json: { error: 'Invalid Id ' }, status:404
+  # end
 
   # def handle_pram_exception
   #   render json: {error: 'Param is missing or Empty Value'}, status:406
@@ -75,15 +75,3 @@ class ApplicationController < ActionController::Base
 
 end
 
-  # def authenticate_user
-  #   header = request.headers['Authorization']
-  #   header = header.split(' ').last if header
-  #   begin
-  #     @decoded = jwt_decode(header)
-  #     current_user = User.find(@decoded[:user_id])
-  #   rescue ActiveRecord::RecordNotFound => e
-  #     render json: { error: "User not found" }, status: :unauthorized
-  #   rescue JWT::DecodeError => e  
-  #     render json: { error: "Login First" }, status: :unauthorized 
-  #   end
-  # end

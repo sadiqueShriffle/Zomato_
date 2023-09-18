@@ -14,6 +14,11 @@ Rails.application.routes.draw  do
   get '/restaurent/search' , to: "restaurents#search"
   resources :restaurents 
 
+  #Categories Routes
+  resources :categories
+    get '/categories/create/:id', to: 'categories#new'
+
+
   # Dish Routes
   resources :dishes
   # get '/dish/search', to: 'dishes#search_dish'
