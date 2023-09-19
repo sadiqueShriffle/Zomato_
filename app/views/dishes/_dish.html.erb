@@ -1,3 +1,19 @@
+<html>
+
+<style>
+.image {
+      width: 200px;
+      height: 300px;
+      margin-right: 20px;
+      border: 1px solid #ddd;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+</style>
+
+<body>
+
+
 <div id="<%= dom_id dish %>">
   <p>
     <strong>Name:</strong>
@@ -15,9 +31,11 @@
   </p>
 
   <p>
-    <strong>Image:</strong>
-    <%= dish.image.url %>
-  </p>
+    <strong></strong>
+    <img src="<%= dish.image.attached? ? dish.image.url : 'no_image_available.jpg' %>" alt="<%= dish.name %>" class="image"> 
+     </p>
 
 
 </div>
+</body>
+</html>

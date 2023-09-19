@@ -1,6 +1,6 @@
 class DishesController < ApplicationController  
   before_action :owner_check , except: [ :index ,:show]
-  # before_action :set_value , only: [:edit,:update,:destroy]
+  before_action :set_value , only: [:edit,:update,:destroy]
 
   def index
     if params[:name].present? && params[:restaurent_id].present?
@@ -26,22 +26,30 @@ class DishesController < ApplicationController
   end
   
   def edit
-    @dish = Dish.find(params[:id]).update(dish_params)
+    @dish = @dish.update(dish_params)
+
   end
 
   def new
+    # @category = Category.new
+    # @restaurent = Restaurent.find(params[:restaurent_id])
+    @dish = Dish.new
+    
+    @category = Category.find(params[:category_id])
+
   end
 
   def create
-    byebug
-    @dish = current_user.categories.find(params[:category_id]).dishes.new
+    # @category = Restaurent.find(params[:restaurent_id]).categories.new(category_params)
+
+    @dish = Category.find(params[:category_id]).dishes.new(dish_params)
      if @dish.save
       redirect_to dishes_path
      end
   end
 
   def update
-    @dish = Dish.find(params[:id]).update(dish_params)
+    @dish = @dish.update(dish_params)
     # @dish = current_user.dishes.find(params[:dish_id]).update(dish_params)
     # render json: "Dish Updated Successfully", status:200
   end
@@ -81,13 +89,20 @@ class DishesController < ApplicationController
   end
 
   def dish_params
-    params.require(:dish).permit(:name ,:price ,:dish_type, :image)
+    params.permit(:name ,:price ,:dish_type, :image)
   end 
 
   # def set_value
   #   @dish = Dish.find(params[:id])
   # end
   
+  def set_value
+    if current_user.owner?
+      @dish = current_user.dishes.find(params[:id])
+    else
+      @dish = Dish.find(params[:id])
+    end
+  end
 
 end
 

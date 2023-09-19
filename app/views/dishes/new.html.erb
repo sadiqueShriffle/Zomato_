@@ -1,10 +1,26 @@
-<h1>New dish</h1>
+<body>
+<center>
+    <div class="container">
+        <h1>Dishes</h1>
+        <%= form_with url: "/dishes", method: :post do |form| %>
+            <label for="name">Name</label>
+            <%= form.text_field :name ,id: "name"%><br><br>
 
-<%= render "form", dish: @dish %>
+            <label for="price">Price</label>
+            <%= form.text_field :price, id: "price" %><br><br>
 
-<br>
+            <label for="dish_type">Dish_type</label>
+            <%= form.text_field :dish_type, id: "dish_type" %><br><br>
 
-<div>
-  <%= link_to "Back to dishes", dishes_url %>
-</div>
+            <label for="image">Image</label>
+            <%= form.file_field :image, id: "image" %><br><br>
+            <%= form.submit %><br>
+            <%= form.hidden_field :category_id, value: @category.id %>
 
+        <% end %>
+        <div class="back-link">
+            <%= link_to "Back to Dishes", category_dishes_path %>
+        </div>
+    </div>
+    </center>
+</body>

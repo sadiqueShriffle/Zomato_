@@ -12,15 +12,22 @@ Rails.application.routes.draw  do
 
   # Restaurent routes
   get '/restaurent/search' , to: "restaurents#search"
-  resources :restaurents 
+  resources :restaurents do 
+    resources :categories ,shallow: true  do
+      resources :dishes , shallow: true
+    end
+  end
 
-  #Categories Routes
-  resources :categories
-    get '/categories/create/:id', to: 'categories#new'
+  resources :categories, only: [:create]
+  resources :dishes, only: [:create]
+  # get '/categories/:restaurent_id' to: "categories#create"
 
+  # resources :categories do
+  #   resources :dishes , shallow: true
+  # end
 
   # Dish Routes
-  resources :dishes
+  # resources :dishes
   # get '/dish/search', to: 'dishes#search_dish'
   # get '/category/search', to: 'dishes#filter_by_category'
 

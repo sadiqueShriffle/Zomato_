@@ -15,9 +15,9 @@ class CategoriesController < ApplicationController
 
   # GET /categories/new
   def new
-    rest = params[:restaurent_id]
-    byebug
-    @category = Restaurent.find(rest).categories.new
+    @category = Category.new
+    @restaurent = Restaurent.find(params[:restaurent_id])
+     
   end
 
   # GET /categories/1/edit
@@ -26,11 +26,11 @@ class CategoriesController < ApplicationController
 
   # POST /categories or /categories.json
   def create
-
-    @category = Restaurent.find(rest).categories.new(category_params)
+    @category = Restaurent.find(params[:restaurent_id]).categories.new(category_params)
     respond_to do |format|
       if @category.save
-        format.html { redirect_to category_url(@category), notice: "Category was successfully created." }
+        # format.html { redirect_to category_url(@category), notice: "Category was successfully created." }
+        format.html {redirect_to restaurent_categories_url(@category.restaurent_id), notice: 'Category was Successfully Created' }
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -74,7 +74,7 @@ class CategoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def category_params
-      params.require(:category).permit(:name)
+      params.permit([:name])
     end
 
 end

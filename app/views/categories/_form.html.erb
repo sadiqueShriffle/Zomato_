@@ -1,7 +1,9 @@
-<%= form_with(model: category) do |form| %>
+<%= form_with model: category do |form| %>
+
+  <%unless category.nil?%>
   <% if category.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(category.errors.count, "error") %> prohibited this category from being saved:</h2>
+      <h2><%= pluralize(category.errors.count, "error") %> prohibited this categoryfrom being saved:</h2>
 
       <ul>
         <% category.errors.each do |error| %>
@@ -10,6 +12,7 @@
       </ul>
     </div>
   <% end %>
+  <%end%>
 
   <div>
     <%= form.label :name, style: "display: block" %>
