@@ -1,20 +1,107 @@
-<p style="color: green"><%= notice %></p>
 
-<h1>Dishes</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zomato - Dishes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('img_girl.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      color: #007BFF;
+      text-align: center;
+      padding-top: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .dish-card {
+      display: flex;
+      margin-bottom: 20px;
+    }
+    .dish-details {
+      flex: 1;
+      padding: 20px;
+    }
+    .dish-name {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .release-date {
+      color: #777;
+    }
+    .image {
+      width: 200px;
+      height: 300px;
+      margin-right: 20px;
+      border: 1px solid #ddd;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+    .actions {
+      margin-top: 10px;
+    }
+    .actions a {
+      text-decoration: none;
+      color: #007BFF;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>All Dishes</h1>
+  <div class="container">
+    <% @dishes.each do |dish| %>
+      <div class="dish-card">
+        <img src="<%= dish.image.attached? ? dish.image.url : 'no_image_available.jpg' %>" alt="<%= dish.name %>" class="image">
+        <div class="dish-details">
+          <div class="dish-name"><%= dish.name %></div>
+          <div class="dish-price">₹<%= dish.price %></div>
+          <div class="dish_type"><%= dish.dish_type %></div>
+          <div class="actions">
+          <%if current_user.type=="Owner"%>
+            <%= link_to 'Show', dish %> |
+      
+          <%else%>
+            <%= link_to "Add to Cart",root_path%>
+          <%end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<center>
+  <div>
+    <%if current_user.type == 'Owner'%>
+      <%= link_to "Create New dish", new_category_dish_path %> 
+ 
 
-<div id="dishes">
-  <% @dishes.each do |dish| %>
-    <%= render dish %>
-     
-    <p>
-      <%= link_to "Show this dish", dish %>
-    </p>
-  <% end %>
-</div>
+    <%end%>
+  </div>
+</center>
 
-<% if current_user.type == 'Owner'%>
-<%= link_to "New dish", new_category_dish_path%>
-<% end%>
+
+</body>
+</html>
+
+
+
+
+
+
 
 
 

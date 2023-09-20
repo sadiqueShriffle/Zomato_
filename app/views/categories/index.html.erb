@@ -1,15 +1,18 @@
-<p style="color: green"><%= notice %></p>
+<center>
 
 <h1>Categories</h1>
 
 <div id="categories">
   <% @categories.each do |category| %>
-    <%= render category %>
-    <p>
-      <%= link_to "Show this category", category %>
-    </p>
+
+        <div class="dish-name"><%= category.name %>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  <%= link_to "Show this category", category %></div>
+    </br>
+      
+    
   <% end %>
+  <%if current_user.type == 'Owner'%>
   <%= link_to "New category", new_restaurent_category_path %>
+  <%end%>
 </div>
 
-
+</center>

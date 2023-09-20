@@ -1,10 +1,25 @@
-<h1>Editing dish</h1>
+<body>
+<center>
+    <div class="container">
+        <h1>Dishes</h1>
 
-<%= render "form", dish: @dish %>
+        <%= form_with model: @dish, method: :post do |form| %>
+            <label for="name">Name</label>
+            <%= form.text_field :name ,id: "name"%><br><br>
 
-<br>
+            <label for="price">Price</label>
+            <%= form.text_field :price, id: "price" %><br><br>
 
-<div>
-  <%= link_to "Show this dish", @dish %> |
-  <%= link_to "Back to dishes", dishes_path %>
-</div>
+            <label for="dish_type">Dish_type</label>
+            <%= form.text_field :dish_type, id: "dish_type" %><br><br>
+
+            <label for="image">Image</label>
+            <%= form.file_field :image, id: "image" %><br><br>
+            <%= form.submit "edit dish" %><br>
+   
+        <% end %>
+      
+    </div>
+    </center>
+</body>
+

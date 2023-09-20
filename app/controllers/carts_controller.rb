@@ -4,7 +4,7 @@ class CartsController < ApplicationController
 
   def show
     @cart_data = @current_user.cart.cart_items.includes(:dish)
-    cart_items_data = @cart_data.map do |cart_item|
+    @cart_items_data = @cart_data.map do |cart_item|
       {
         id: cart_item.id,
         dish: cart_item.dish.name,
@@ -12,10 +12,14 @@ class CartsController < ApplicationController
         quantity: cart_item.quantity
       }
     end
-      render json: cart_items_data
+      # render json: cart_items_data
+  end
+  
+  def new
+
   end
 
-  def add_item
+  def create
     add_cart = @current_user.cart.cart_items.build(cart_item_params)
     if add_cart.save
       render json: "Item Added Successfully", status:200

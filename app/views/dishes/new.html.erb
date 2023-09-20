@@ -9,12 +9,14 @@
             <label for="price">Price</label>
             <%= form.text_field :price, id: "price" %><br><br>
 
-            <label for="dish_type">Dish_type</label>
-            <%= form.text_field :dish_type, id: "dish_type" %><br><br>
+            <label for="dish_type">Dish_type</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <%# <%= form.text_field :dish_type, id: "dish_type" %>
+            <%= form.select :dish_type, ['veg','nonveg' ] %>
+            </br>
 
             <label for="image">Image</label>
             <%= form.file_field :image, id: "image" %><br><br>
-            <%= form.submit %><br>
+            <%= form.submit "Create Dish" %><br>
             <%= form.hidden_field :category_id, value: @category.id %>
 
         <% end %>

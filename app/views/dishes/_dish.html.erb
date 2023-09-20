@@ -14,28 +14,29 @@
 <body>
 
 
-<div id="<%= dom_id dish %>">
-  <p>
-    <strong>Name:</strong>
-    <%= dish.name %>
-  </p>
+    <div id="<%= dom_id dish %>">
+      <p>
+        <strong>Name:</strong>
+        <%= dish.name %>
+      </p>
 
-  <p>
-    <strong>Price:</strong>
-    <%= dish.price %>
-  </p>
+      <p>
+        <strong>Price:</strong>
+        <%= dish.price %>
+      </p>
 
-  <p>
-    <strong>Dish type:</strong>
-    <%= dish.dish_type %>
-  </p>
+      <p>
+        <strong>Dish type:</strong>
+        <%= dish.dish_type %>
+      </p>
 
-  <p>
-    <strong></strong>
-    <img src="<%= dish.image.attached? ? dish.image.url : 'no_image_available.jpg' %>" alt="<%= dish.name %>" class="image"> 
-     </p>
+      <p>
+        <strong></strong>
+        <img src="<%= dish.image.attached? ? dish.image.url : 'no_image_available.jpg' %>" alt="<%= dish.name %>" class="image"> 
+      </p>
 
 
-</div>
+    </div>
 </body>
+
 </html>

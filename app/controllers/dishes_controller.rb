@@ -25,9 +25,7 @@ class DishesController < ApplicationController
     @dish= Dish.find(params[:id])
   end
   
-  def edit
-    @dish = @dish.update(dish_params)
-
+  def edit  
   end
 
   def new
@@ -41,22 +39,26 @@ class DishesController < ApplicationController
 
   def create
     # @category = Restaurent.find(params[:restaurent_id]).categories.new(category_params)
-
     @dish = Category.find(params[:category_id]).dishes.new(dish_params)
      if @dish.save
-      redirect_to dishes_path
+      redirect_to category_dishes_path(@dish.category_id)
      end
   end
 
   def update
+    byebug
     @dish = @dish.update(dish_params)
     # @dish = current_user.dishes.find(params[:dish_id]).update(dish_params)
     # render json: "Dish Updated Successfully", status:200
   end
 
   def destroy
-    current_user.dishes.find(params[:dish_id]).destroy 
-    render json: "Dish Deleted  Successfully", status:200 
+  if @dish.destroy
+    redirect_to category_dishes_path(@dish.category_id)
+  else
+    format.html { render :new, status: :unprocessable_entity }
+  end
+ 
   end
 
 

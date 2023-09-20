@@ -32,8 +32,8 @@ Rails.application.routes.draw  do
   # get '/category/search', to: 'dishes#filter_by_category'
 
   # Cart Routes
-  post '/additems' , to: "carts#add_item"
-  resource :cart
+  post '/add_to_cart' , to: "carts#add_item"
+  resource  :cart
 
   # Orders Routes
   resources :orders
