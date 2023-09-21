@@ -33,7 +33,7 @@ Rails.application.routes.draw  do
 
   # Cart Routes
   post '/add_to_cart' , to: "carts#add_item"
-  resource  :cart
+  resources  :carts
 
   # Orders Routes
   resources :orders
