@@ -62,33 +62,34 @@
     }
   </style>
 </head>
-<body>
-  <h1>All Restaurent</h1>
-  <div class="container">
-    <% @restaurents.each do |restaurent| %>
-      <div class="restaurent-card">
-        <div class="restaurent-details">
-          <div class="restaurent-name"><%= restaurent.name %></div>
-          <div class="restaurent-place"><%= restaurent.place %></div>
-          <div class="restaurent-status"><%= restaurent.status %></div>
-          <div class="actions">
-            <%= link_to 'Show', restaurent %> 
+
+  <body>
+    <h1>All Restaurent</h1>
+    <div class="container">
+      <% @restaurents.each do |restaurent| %>
+        <div class="restaurent-card">
+          <div class="restaurent-details">
+            <div class="restaurent-name"><%= restaurent.name %></div>
+            <div class="restaurent-place"><%= restaurent.place %></div>
+            <div class="restaurent-status"><%= restaurent.status %></div>
+            <div class="actions">
+              <%= link_to 'Show', restaurent %> 
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
-  <center>
-  <div>
-<% if current_user.type == 'Owner'%>
-<%= link_to "New restaurent", new_restaurent_path %>
-<%else%>
-  <%= link_to "Show Cart", carts_path %>
-<% end%>
-  </div>
-</center>
+      <%end%>
+    </div>
 
-</body>
+    <div>
+      <%if current_user.type == 'Owner'%>
+        <%= link_to "New restaurent", new_restaurent_path %>
+      <%else%>
+        <%= link_to "Show Cart", carts_path %>&nbsp&nbsp&nbsp
+        <%= link_to "Order History", orders_path %>
+      <% end%>
+    </div>
+
+  </body>
 </html>
 
 

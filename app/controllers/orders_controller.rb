@@ -1,30 +1,34 @@
 class OrdersController < ApplicationController
-  skip_before_action :owner_check
+
+  before_action :customer_check
+
   before_action :set_order, only: [:show, :update, :destroy]
 
   def index
-    orders = @current_user.orders.includes(:order_items)
-    return  render json: orders unless orders.empty?
-    render json: 'No Orders yet'
+    @orders = current_user.orders.includes(:order_items)
   end
 
   def show
-    order = @current_user.orders.find(params[:id])
-    render json: order, state:200
+    @order = current_user.orders.find(params[:id])
+  end
+
+  def new
+    @order = Order.new
   end
 
   def create
-    order = @current_user.orders.new(order_item_params)
-    @current_user.cart_items.each do |cart_item|
-    order.order_items.new(dish_id: cart_item.dish_id, quantity: cart_item.quantity)
+    @order = current_user.orders.new(order_item_params)
+    current_user.cart_items.each do |cart_item|
+    @order.order_items.new(dish_id: cart_item.dish_id, quantity: cart_item.quantity)
     end
-    if order.save
-      # OrderMailer.with(user: @current_user).welcome_email.deliver
-      @current_user.cart.cart_items.destroy_all
-      render json: order, status: :created
+    if @order.save
+      # OrderMailer.with(user: current_user).welcome_email.deliver
+      current_user.cart.cart_items.destroy_all
+      redirect_to orders_path
     else
       render json: order.errors, status: :unprocessable_entity
     end
+
   end
 
   def update
@@ -42,11 +46,11 @@ class OrdersController < ApplicationController
 
   private
   def set_order
-    @order = @current_user.orders.find(params[:id])
+    @order = current_user.orders.find(params[:id])
   end
 
   def order_item_params
-    params.permit([:name, :shipping_address])
+    params.require(:order).permit(:name, :shipping_address)
   end
   
 end

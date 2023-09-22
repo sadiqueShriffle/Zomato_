@@ -43,10 +43,8 @@ class RestaurentsController < ApplicationController
 
 	
 	def update
-		byebug
     respond_to do |format|
       if @restaurent.update(restaurent_params)
-				byebug
         format.html { redirect_to root_url, notice: "Restaurent was successfully updated." }
         format.json { render :show, status: :ok, location: @restaurent }
       else

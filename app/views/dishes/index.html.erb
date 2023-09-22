@@ -73,7 +73,7 @@
           <div class="dish_type"><%= dish.dish_type %></div>
           <div class="actions">
           <%if current_user.type=="Owner"%>
-            <%= link_to 'Show', dish %> |      
+            <%= link_to 'Show', dish %>     
           <%else%>
             <%= button_to 'Add to Cart', new_cart_path(dish.id), :method => :get %>
           <%end %>
@@ -82,7 +82,7 @@
       </div>
     <% end %>
   </div>
-<center>
+
   <div>
     <%if current_user.type == 'Owner'%>
       <%= link_to "Create New dish", new_category_dish_path %> 
@@ -90,9 +90,6 @@
 
     <%end%>
   </div>
-</center>
-
-
 </body>
 </html>
 

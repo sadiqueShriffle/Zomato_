@@ -3,18 +3,11 @@ class CartsController < ApplicationController
   before_action :set_cart, only: [:index]
   before_action :set_cart_item ,only: %i[edit update destroy]
 
+  # before_action :find_id ,only: %i[create]
+
   
   def index
     @carts = current_user.cart.cart_items
-    # @cart_items_data = @cart_data.map do |cart_item|
-    #   {
-    #     id: cart_item.id,
-    #     dish: cart_item.dish.name,
-    #     price: cart_item.dish.price,
-    #     quantity: cart_item.quantity
-    #   }
-    # end
-    # @cart_items_data
   end
 
   def show
@@ -31,21 +24,20 @@ class CartsController < ApplicationController
   end
   
   def new
-    byebug
+    id = params[:format].to_i
+    @dish=Dish.find(id)
   end
 
   def create
-    add_cart = current_user.cart.cart_items.build(cart_item_params)
+    add_cart = current_user.cart.cart_items.new(cart_item_params)
     if add_cart.save
-      render json: "Item Added Successfully", status:200
-    else
-      render json: add_cart.errors, status: :unprocessable_entity
+      flash[:notice] = "Item Added to your Cart."
+      redirect_to carts_path
     end
   end
 
 
   def edit
-
   end
 
   def update
@@ -58,15 +50,14 @@ class CartsController < ApplicationController
   end
 
   def destroy
-    byebug
-  if @cart_item.destroy
-    redirect_to root_path
+    if @cart_item.destroy
+      redirect_to root_path
+    end
   end
-end
 
   def clear_cart
     current_user.cart.cart_items.destroy_all
-    render json: @cart, include: :cart_items
+    redirect_to root_path
   end
 
   private
@@ -80,6 +71,7 @@ end
   end
 
   def cart_item_params
-    params.permit([:dish_id, :quantity])
+    params.permit(:dish_id, :quantity)
   end
+
 end

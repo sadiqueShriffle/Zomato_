@@ -1,15 +1,17 @@
-<center>
 
-<h1>Cart Items</h1>
+  <h1>Cart Items</h1>
 
-<div id="Your Cart">
-  <% @carts.each do |cart| %>
-    <%= render cart.dish %>
-      <div class="restaurent-status">Quantity <%= cart.quantity %></div>
-      <%= button_to "remove item", cart_path(cart), method: :delete %>
-  </br>
-  <% end %>
-</div>
+  <div id="Your Cart">
+    <% @carts.each do |cart| %>
+      <%= render cart.dish %>
+        <div class="restaurent-status">Quantity <%= cart.quantity %></div>
+        <%= button_to "remove item", cart_path(cart), method: :delete %>
+    </br>
+    <% end %>
+  </div>
 
-<%= link_to "Back to Restaurent", root_path %>
-</center>
+  <%if @carts.any?%>
+    <%= link_to "Clear Cart", clearcart_path %>&nbsp&nbsp&nbsp&nbsp&nbsp
+    <%= link_to "Order Now", new_order_path %>&nbsp&nbsp&nbsp&nbsp&nbsp
+  <%end%>
+  <%= link_to "Back to Restaurent", root_path%>
