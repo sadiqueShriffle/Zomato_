@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_action :customer_check
+  # before_action :customer_check
 
   before_action :set_order, only: [:show, :update, :destroy]
 
@@ -41,7 +41,8 @@ class OrdersController < ApplicationController
 
   def destroy
     @order.destroy
-    render json: "Order deleted Successfully", status:200
+    redirect_to orders_path
+    # render json: "Order deleted Successfully", status:200
   end
 
   private

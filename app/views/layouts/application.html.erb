@@ -16,10 +16,25 @@
     <%# <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 
     <%= javascript_importmap_tags %>
+
   </head>
 
+<style>
+
+/* img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+    opacity: 0.9;
+    
+} */
+</style>
+
   <body>
-  
+
+<%# <%= image_tag("boat.jpg", :alt => "background feed")%> 
+
   <div  align="left | right | center | justify"; >
       <% if user_signed_in? %>
         Signed in as <%= current_user.name %>

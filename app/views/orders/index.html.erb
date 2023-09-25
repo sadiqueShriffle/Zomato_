@@ -4,11 +4,17 @@
 
 <div id="order History">
   <% @orders.each do |order| %>
+
+   <p><strong>Order Id: &nbsp</strong><%=order.unique_order_id%></p>
     <%= render order %>
     <p>
-      <%= link_to "Show this order", order %>
+      <%= link_to "Show this order", order %></br></br>
     </p>
   <% end %>
 </div>
+
+
+
+
 
 <%=button_to 'Back to Restaurent', root_path,  :method => :get %>

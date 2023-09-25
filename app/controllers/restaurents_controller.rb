@@ -1,7 +1,7 @@
 class RestaurentsController < ApplicationController
 
-	before_action :customer_check , only: :search
-	before_action :owner_check, except: [:index,:show]
+	# before_action :customer_check , only: :search
+	# before_action :owner_check, except: [:index,:show]
 
 	before_action :set_values , only: [:show,:update ,:destroy,:edit] 
 

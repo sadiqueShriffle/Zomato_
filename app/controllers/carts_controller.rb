@@ -1,7 +1,7 @@
 class CartsController < ApplicationController
 
-  before_action :set_cart, only: [:index]
-  before_action :set_cart_item ,only: %i[edit update destroy]
+  # before_action :set_cart, only: [:index]
+  # before_action :set_cart_item ,only: %i[edit update destroy]
 
   # before_action :find_id ,only: %i[create]
 
@@ -28,13 +28,29 @@ class CartsController < ApplicationController
     @dish=Dish.find(id)
   end
 
-  def create
-    add_cart = current_user.cart.cart_items.new(cart_item_params)
-    if add_cart.save
-      flash[:notice] = "Item Added to your Cart."
-      redirect_to carts_path
+    def create
+      dish=Dish.find(params[:dish_id])
+      
+    if current_user.cart.check_unique_restaurent?(dish)
+      current_user.cart.cart_items.destroy_all
+      add_cart = current_user.cart.cart_items.new(cart_item_params)
+      notice_message = 'Cart items updated with a new restaurant.'
+    else
+      add_cart=current_user.cart.cart_items.new(cart_item_params)
+      notice_message = 'Dish added to cart successfully.'
     end
+
+     add_cart.save
+      redirect_to carts_path , notice: notice_message
   end
+
+  # def create
+  #   add_cart = current_user.cart.cart_items.new(cart_item_params)
+  #   if add_cart.save
+  #     flash[:notice] = "Item Added to your Cart."
+  #     redirect_to carts_path
+  #   end
+  # end
 
 
   def edit
@@ -71,7 +87,24 @@ class CartsController < ApplicationController
   end
 
   def cart_item_params
-    params.permit(:dish_id, :quantity)
+    params.permit(:dish_id,  :quantity)
   end
 
 end
+
+
+  # def create
+  #   dish=Dish.find(params[:dish_id])
+  #   byebug
+  #   if current_user.cart.check_unique_restaurent?(dish)
+  #     clear_cart
+  #     add_cart = current_user.cart.cart_items.new(cart_item_params)
+  #     notice_message = 'Cart items updated with a new restaurant.'
+  #   else
+  #     add_cart=current_user.cart.cart_items.new(cart_item_params)
+  #     notice_message = 'Dish added to cart successfully.'
+  #   end
+  #   if add_cart.save
+  #     redirect_to carts_path , notice: notice_message
+  #   end
+  # end

@@ -1,6 +1,4 @@
 class DishesController < ApplicationController  
-  before_action :owner_check , except: [ :index ,:show]
-  before_action :set_value , only: [:edit,:update,:destroy]
 
   def index
     if params[:name].present? && params[:restaurent_id].present?
@@ -32,17 +30,15 @@ class DishesController < ApplicationController
     # @category = Category.new
     # @restaurent = Restaurent.find(params[:restaurent_id])
     @dish = Dish.new
-    
     @category = Category.find(params[:category_id])
-
   end
 
   def create
     # @category = Restaurent.find(params[:restaurent_id]).categories.new(category_params)
     @dish = Category.find(params[:category_id]).dishes.new(dish_params)
-     if @dish.save
+    if @dish.save
       redirect_to category_dishes_path(@dish.category_id)
-     end
+    end
   end
 
   def update
