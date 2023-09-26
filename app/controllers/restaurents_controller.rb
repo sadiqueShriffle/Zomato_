@@ -15,18 +15,19 @@ class RestaurentsController < ApplicationController
 		# .paginate(page: params[:page], per_page: 2)
 	end
 
+	def new
+		@restaurent = current_user.restaurents.new
+		@restaurent.categories.new 
+		@restaurent.categories.each {|category| category.dishes.new}
+	end
+
+
 	def show 
 		if current_user.owner?
 			@restaurent = current_user.restaurents.includes(categories: :dishes).find(params[:id]) 
 		else	
 			@restaurent= Restaurent.find(params[:id])
 		end
-	end
-
-	def new
-		@restaurent = current_user.restaurents.new
-		@restaurent.categories.new 
-		@restaurent.categories.each {|category| category.dishes.new}
 	end
 
 	def create
@@ -63,6 +64,7 @@ class RestaurentsController < ApplicationController
 			@restaurent
 		end
 	end
+
 
 	def search
     restaurent = Restaurent.where("name like ?","%" +params[:name].strip+ "%")

@@ -8,7 +8,7 @@ Rails.application.routes.draw  do
   # post '/login', to: 'application#login'
 
   # post "/signup", to: "users#create"
-  resource :user,  except: :create
+  # resource :user,  except: :create
 
   # Restaurent routes
   get '/restaurent/search' , to: "restaurents#search"

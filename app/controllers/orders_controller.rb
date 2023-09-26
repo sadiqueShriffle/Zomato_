@@ -1,19 +1,17 @@
 class OrdersController < ApplicationController
 
-  # before_action :customer_check
-
   before_action :set_order, only: [:show, :update, :destroy]
 
   def index
     @orders = current_user.orders.includes(:order_items)
   end
 
-  def show
-    @order = current_user.orders.find(params[:id])
-  end
-
   def new
     @order = Order.new
+  end
+
+  def show
+    @order = current_user.orders.find(params[:id])
   end
 
   def create
@@ -26,9 +24,8 @@ class OrdersController < ApplicationController
       current_user.cart.cart_items.destroy_all
       redirect_to orders_path
     else
-      render json: order.errors, status: :unprocessable_entity
+      # render json: order.errors, status: :unprocessable_entity
     end
-
   end
 
   def update

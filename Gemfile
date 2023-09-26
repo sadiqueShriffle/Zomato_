@@ -72,6 +72,7 @@ group :development do
   gem 'will_paginate'
   gem 'rubocop'
   gem "cancan"
+  gem 'receipts'
 
 end
 

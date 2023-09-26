@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
   
-  def welcome; end
-
   def show
     @user = @current_user
     byebug

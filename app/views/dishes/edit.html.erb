@@ -1,7 +1,6 @@
 <body>
 	<div class="container">
 		<h1>Dishes</h1>
-
 		<%= form_with model: @dish, method: :post do |form| %>
 				<label for="name">Name</label>
 				<%= form.text_field :name ,id: "name"%><br><br>
@@ -16,7 +15,6 @@
 				<%= form.file_field :image, id: "image" %><br><br>
 				<%= form.submit "edit dish" %><br>
 		<% end %>
-		
 	</div>
 </body>
 

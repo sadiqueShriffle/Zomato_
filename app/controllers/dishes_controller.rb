@@ -19,18 +19,18 @@ class DishesController < ApplicationController
       # render json: @dish.paginate(page: params[:page], per_page: 2)
   end
 
-  def show
-    @dish= Dish.find(params[:id])
-  end
-  
-  def edit  
-  end
-
   def new
     # @category = Category.new
     # @restaurent = Restaurent.find(params[:restaurent_id])
     @dish = Dish.new
     @category = Category.find(params[:category_id])
+  end
+
+  def show
+    @dish= Dish.find(params[:id])
+  end
+  
+  def edit  
   end
 
   def create

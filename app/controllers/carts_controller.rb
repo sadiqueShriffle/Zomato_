@@ -40,8 +40,9 @@ class CartsController < ApplicationController
       notice_message = 'Dish added to cart successfully.'
     end
 
-     add_cart.save
+     if add_cart.save
       redirect_to carts_path , notice: notice_message
+     end
   end
 
   # def create
