@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
   
   def show
-    @user = @current_user
-    byebug
+    @user = current_user
   end
 
   def create
@@ -15,18 +14,18 @@ class UsersController < ApplicationController
   end
 
   def update
-    return render json: {message: 'User Updated Successfully'} if @current_user.update(user_param)
-    render json: {errors: @current_user.errors.full_messages}
+    return render json: {message: 'User Updated Successfully'} if current_user.update(user_param)
+    render json: {errors: current_user.errors.full_messages}
   end
 
   def destroy
-    return render json: {message: 'User Deleted Successfully'} if @current_user.destroy
-    render json: {errors: @current_user.errors.full_messages}
+    return render json: {message: 'User Deleted Successfully'} if current_user.destroy
+    render json: {errors: current_user.errors.full_messages}
   end
 
   private
   def user_param
-    params.permit([:name,:email,:password,:type,:image])
+    params.permit(:name,:email,:password,:type,:image)
   end
 
 end

@@ -11,7 +11,7 @@ class RestaurentsController < ApplicationController
 		else
 			@restaurents = Restaurent.where(status: 'open')
 		end
-		@restaurens
+		@restaurents=@restaurents.paginate(page: params[:page], per_page: 2)
 		# .paginate(page: params[:page], per_page: 2)
 	end
 
@@ -23,6 +23,8 @@ class RestaurentsController < ApplicationController
 
 
 	def show 
+		# if current_user.test?(current_user.restaurents.first.category.first)
+		# end
 		if current_user.owner?
 			@restaurent = current_user.restaurents.includes(categories: :dishes).find(params[:id]) 
 		else	

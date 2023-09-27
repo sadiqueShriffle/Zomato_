@@ -1,9 +1,9 @@
 Rails.application.routes.draw  do
 
+  root 'restaurents#index'
   devise_for :users
 
-  root 'restaurents#index'
-
+  resource :user, except: [:create]
   # User routes
   # post '/login', to: 'application#login'
 

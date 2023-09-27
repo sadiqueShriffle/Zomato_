@@ -72,7 +72,6 @@ group :development do
   gem 'will_paginate'
   gem 'rubocop'
   gem "cancan"
-  gem 'receipts'
 
 end
 
@@ -82,6 +81,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-
 
 gem "devise", "~> 4.9"

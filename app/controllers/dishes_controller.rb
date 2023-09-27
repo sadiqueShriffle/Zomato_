@@ -16,6 +16,7 @@ class DishesController < ApplicationController
         @dishes= current_user.dishes
       end
     end
+    @dishes=@dishes.paginate(page: params[:page], per_page: 2)
       # render json: @dish.paginate(page: params[:page], per_page: 2)
   end
 

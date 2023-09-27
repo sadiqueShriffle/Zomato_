@@ -20,7 +20,7 @@ class Order < ApplicationRecord
 
   def calculate_total_amount
 		self.total_amount = self.user.cart.cart_items.sum{|cart_item| cart_item.dish.price * cart_item.quantity}
-	end
+  end
 
 
 end

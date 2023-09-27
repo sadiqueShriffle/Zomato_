@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
 
   def index
     @orders = current_user.orders.includes(:order_items)
+    @orders = @orders.paginate(page: params[:page], per_page: 2)
   end
 
   def new
