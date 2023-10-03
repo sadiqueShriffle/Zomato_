@@ -1,6 +1,16 @@
-<h1>Editing user</h1>
+<body>
+	<div class="container">
+		<h1>Profile</h1>
+		<%= form_with model: @user, method: :post do |form| %>
+				<label for="name">Name</label>
+				<%= form.text_field :name ,id: "name"%><br><br>
 
-<%= render "form", user: @user %>
-
-<br>
+				<label for="price">Email</label>
+				<%= form.text_field :email, id: "price" %><br><br>
+				<label for="image">Image</label>
+				<%= form.file_field :image, id: "image" %><br><br>
+				<%= form.submit "update profile"%><br>
+		<% end %>
+	</div>
+</body>
 

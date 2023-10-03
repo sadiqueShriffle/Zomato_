@@ -68,7 +68,7 @@ class RestaurentsController < ApplicationController
 	end
 
 
-	def search
+	def search_restaurent
     restaurent = Restaurent.where("name like ?","%" +params[:name].strip+ "%")
     return  render json: restaurent unless restaurent.empty?
     render json: {error: "No such restaurent found... "}, status:404            

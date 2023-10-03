@@ -12,10 +12,16 @@ class UsersController < ApplicationController
     end
     render json: user.errors.full_messages
   end
+  
+  def edit
+    @user =current_user
+    byebug
+  end
 
   def update
-    return render json: {message: 'User Updated Successfully'} if current_user.update(user_param)
-    render json: {errors: current_user.errors.full_messages}
+    byebug
+    if @user.update(user_param)
+    end
   end
 
   def destroy

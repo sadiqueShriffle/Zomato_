@@ -3,7 +3,7 @@ Rails.application.routes.draw  do
   root 'restaurents#index'
   devise_for :users
 
-  resource :user, except: [:create]
+  resource :user, except: :create
   # User routes
   # post '/login', to: 'application#login'
 
@@ -11,7 +11,7 @@ Rails.application.routes.draw  do
   # resource :user,  except: :create
 
   # Restaurent routes
-  get '/restaurent/search' , to: "restaurents#search"
+  get '/restaurent/search' , to: "restaurents#search_restaurent"
   resources :restaurents do 
     resources :categories ,shallow: true  do
       resources :dishes , shallow: true

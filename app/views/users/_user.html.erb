@@ -14,4 +14,8 @@
     <%= user.type %>
   </p>
 
+  <p>
+    <strong></strong>
+    <img src="<%= user.image.attached? ? user.image.url : 'no_image_available.jpg' %>" alt="<%= user.name %>" class="image"> 
+  </p>
 </div>
