@@ -1,0 +1,17 @@
+  <body>
+
+  <div class="container">
+      <h1>Add Quantity</h1>
+        <%= form_with url: "/carts", method: :post do |form| %>
+          <label for="quantity">Quantity</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp     </br>
+          <%= form.select :quantity, [1,2,3,4,5] %>
+          <%= form.hidden_field :dish_id, value: @dish.id %></br></br>
+        <%= form.submit "Add" %><br>
+      <% end %>
+  </div>
+
+  <div>
+    <%= button_to 'My Cart', carts_path, :method => :get %>
+  </div>
+
+  </body>

@@ -1,0 +1,22 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Orders</h1>
+
+<div id="order History">
+  <% @orders.each do |order| %>
+   <p><strong>Order Id: &nbsp</strong><%=order.unique_order_id%></p>
+    <%= render order %>
+    <p><strong>Total Amount: &nbsp</strong>₹<%=order.total_amount%></p>
+    <p>
+      <%= link_to "Show this order", order %></br></br>
+    </p>
+  <% end %>
+</div>
+
+
+  <center>
+    <%= will_paginate @orders, :container => false%></br></br>
+  </center>
+
+
+<%=button_to 'Back to Restaurent', root_path,  :method => :get %>

@@ -1,0 +1,32 @@
+<%= form_with(model: restaurent) do |form| %>
+  <% if restaurent.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(restaurent.errors.count, "error") %> prohibited this restaurent from being saved:</h2>
+
+      <ul>
+        <% restaurent.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :place, style: "display: block" %>
+    <%= form.text_field :place %>
+  </div>
+
+  <div>
+    <label for="dish_type">Status</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <%= form.select :status, ['open','close' ] %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,14 @@
+<%= render @order %>
+
+<p><strong>Order Id: &nbsp</strong><%=@order.unique_order_id%></p>
+<p><strong>Dish Name: &nbsp</strong><%=@order.order_items.map(&:dish).pluck(:name)%></p>
+<%# <p><strong>Dish Name: &nbsp</strong><%=@order.order_items.first.dish.name%>
+<p><strong>Quantity: &nbsp</strong><%=@order.order_items.map(&:quantity)%></p>
+<p><strong>Total Amount: &nbsp</strong>₹<%=@order.total_amount%></p>
+
+<div>
+  <%= link_to "Back to orders", orders_path %> |
+  <%= button_to "Destroy this order", @order, method: :delete %>
+</div>
+
+

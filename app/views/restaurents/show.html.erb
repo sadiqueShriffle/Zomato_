@@ -1,0 +1,13 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @restaurent %>
+
+<div>
+  <%= link_to "Back to restaurents", restaurents_path %> |
+  <%= link_to "Show Dish Category", restaurent_categories_path(@restaurent) %> |
+
+  <%if current_user.type == 'Owner'%>
+  <%= link_to "Edit this restaurent", edit_restaurent_path(@restaurent) %> |
+  <%= button_to "Destroy this restaurent", @restaurent, method: :delete %>
+  <%end%>
+</div>

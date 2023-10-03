@@ -1,50 +1,74 @@
 class RestaurentsController < ApplicationController
-	skip_before_action :customer_check
-	skip_before_action :owner_check , only: [:index,:search,:show]
 
-	before_action :set_values , only: [:show,:update , :destroy]
+	# before_action :customer_check , only: :search
+	# before_action :owner_check, except: [:index,:show]
+
+	before_action :set_values , only: [:show,:update ,:destroy,:edit] 
 
 	def index
-		return render json: @current_user.restaurents.paginate(page: params[:page], per_page: 1) if @current_user.owner?
-		restaurent = Restaurent.where(status: 'open').paginate(page: params[:page], per_page: 2)
-		render json: restaurent
-	end
-
-	def show 
-		if @current_user.owner?
-			restaurent = @current_user.restaurents.includes(categories: :dishes).find(params[:id]) 
-		else	
-			restaurent= Restaurent.find(params[:id])
+		if current_user.owner?
+		 	@restaurents = current_user.restaurents
+		else
+			@restaurents = Restaurent.where(status: 'open')
 		end
-		render json: restaurent. status:200
+		@restaurents=@restaurents.paginate(page: params[:page], per_page: 2)
+		# .paginate(page: params[:page], per_page: 2)
 	end
 
 	def new
-		@restaurent = @current_user.restaurents.new
+		@restaurent = current_user.restaurents.new
 		@restaurent.categories.new 
 		@restaurent.categories.each {|category| category.dishes.new}
 	end
 
+
+	def show 
+		# if current_user.test?(current_user.restaurents.first.category.first)
+		# end
+		if current_user.owner?
+			@restaurent = current_user.restaurents.includes(categories: :dishes).find(params[:id]) 
+		else	
+			@restaurent= Restaurent.find(params[:id])
+		end
+	end
+
 	def create
-		@restaurent = @current_user.restaurents.new(restaurent_params)
+		@restaurent = current_user.restaurents.new(restaurent_params)
 		if @restaurent.save
-			render json: @restaurent, status:200
+			redirect_to root_path
 		else
 			render json: 'Error While Creating Restaurent', status: :unprocessable_entity
 		end
 	end
 
-	def update
-		return render json: {message: " Updated successfully!!", data:@restaurent}	if @restaurent.update(restaurent_params)
-		render json: {errors: @restaurent.errors.full_messages}, status: :unprocessable_entity
+	def edit
 	end
+
+	
+	def update
+    respond_to do |format|
+      if @restaurent.update(restaurent_params)
+        format.html { redirect_to root_url, notice: "Restaurent was successfully updated." }
+        format.json { render :show, status: :ok, location: @restaurent }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @restaurent.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
 	def destroy
-		return render json: {message: " Restaurent Deleted successfully!!", data:@restaurent} if @restaurent.destroy
-		render json: {errors: @restaurent.errors.full_messages}, status: :unprocessable_entity
+		if @restaurent.destroy
+			redirect_to root_path
+		# return render json: {message: " Restaurent Deleted successfully!!", data:@restaurent} 
+		# render json: {errors: @restaurent.errors.full_messages}, status: :unprocessable_entity
+		else
+			@restaurent
+		end
 	end
 
-	def search
+
+	def search_restaurent
     restaurent = Restaurent.where("name like ?","%" +params[:name].strip+ "%")
     return  render json: restaurent unless restaurent.empty?
     render json: {error: "No such restaurent found... "}, status:404            
@@ -64,7 +88,6 @@ class RestaurentsController < ApplicationController
 							:name,
 							:price,
 							:dish_type
-							
 						]
 				]
 		)

@@ -1,0 +1,17 @@
+
+<body>
+  <div class="container">
+    <h1>Category</h1>
+    <%= form_with url: "/categories", method: :post do |form| %>
+      <label for="name">Name</label>
+      <%= form.text_field :name ,id: "name"%><br><br>
+      <%= form.hidden_field :restaurent_id, value: @restaurent.id %>
+      <%= form.submit  "Create Category" %><br>
+    <% end %>
+    
+    <div class="back-link">
+      <%= link_to "Back to categories", restaurent_categories_path %> 
+    </div>
+  </div>
+</body>
+

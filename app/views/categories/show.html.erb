@@ -1,0 +1,13 @@
+<p style="color: green"><%= notice %></p>
+<p>
+<%= render @category %>
+<%= link_to "Dishes", category_dishes_path(category_id: @category.id)%> </br>
+</p>
+
+<div>
+  <%if current_user.type =='Owner'%>
+    <%= link_to "Edit this category", edit_category_path(@category) %> |
+    <%= button_to "Destroy this category", @category, method: :delete %>
+  <%end%>
+  <%# <%= link_to "Back to categories", restaurent_categories_path %> 
+</div>

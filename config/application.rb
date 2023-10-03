@@ -12,7 +12,7 @@ module Zomato
     config.load_defaults 7.0
     # config.api_only = true
 
-    config.middleware.use ActionDispatch::Session::CookieStore
+    # config.middleware.use ActionDispatch::Session::CookieStore
 
     # Configuration for the application, engines, and railties goes here.
     #

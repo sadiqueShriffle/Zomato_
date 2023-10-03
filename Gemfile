@@ -71,6 +71,7 @@ group :development do
   gem 'kaminari'
   gem 'will_paginate'
   gem 'rubocop'
+  gem "cancan"
 
 end
 
@@ -81,3 +82,4 @@ group :test do
   gem "webdrivers"
 end
 
+gem "devise", "~> 4.9"

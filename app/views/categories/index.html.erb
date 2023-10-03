@@ -1,0 +1,12 @@
+<h1>Categories</h1>
+
+<div id="categories">
+  <% @categories.each do |category| %>
+    <div class="category-name"><%= category.name %>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  <%= link_to "Show this category", category %></div></br>
+  <% end %>
+
+  <%if current_user.type == 'Owner'%>
+    <%= link_to "New category", new_restaurent_category_path %>
+  <%end%>
+</div>
+

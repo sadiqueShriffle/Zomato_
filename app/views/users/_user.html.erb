@@ -1,0 +1,21 @@
+<div id="<%= dom_id user %>">
+  <p>
+    <strong>Name:</strong>
+    <%= user.name %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= user.email %>
+  </p>
+
+  <p>
+    <strong>Type:</strong>
+    <%= user.type %>
+  </p>
+
+  <p>
+    <strong></strong>
+    <img src="<%= user.image.attached? ? user.image.url : 'no_image_available.jpg' %>" alt="<%= user.name %>" class="image"> 
+  </p>
+</div>

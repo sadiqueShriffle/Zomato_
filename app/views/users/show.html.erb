@@ -1,0 +1,11 @@
+
+
+<p><strong>Name: &nbsp</strong><%=current_user.name%></p>
+<p><strong>Email: &nbsp</strong><%=current_user.email%></p>
+<%# <p><strong>Dish Name: &nbsp</strong><%=@order.order_items.first.dish.name%>
+<p><strong>Type: &nbsp</strong><%=current_user.type%></p>
+
+<div>
+  <%= link_to "Edit this user", edit_user_path(@user) %> |
+
+</div>
