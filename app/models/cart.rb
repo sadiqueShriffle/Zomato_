@@ -5,6 +5,13 @@ class Cart < ApplicationRecord
 
 	validate :customer_only_add_restaurent
 
+	def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "id", "updated_at", "user_id"]
+  end
+	def self.ransackable_associations(auth_object = nil)
+    ["cart_items", "dishes", "user"]
+  end
+
 
 	def check_unique_restaurent?(restaurent)
 		r_id = restaurent.category.restaurent_id

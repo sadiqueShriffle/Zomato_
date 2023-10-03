@@ -1,7 +1,13 @@
 Rails.application.routes.draw  do
 
   root 'restaurents#index'
+
+  devise_for :admin_users, ActiveAdmin::Devise.config 
+  ActiveAdmin.routes(self)
+
   devise_for :users
+
+  # resources :admin
 
   resource :user, except: :create
   # User routes

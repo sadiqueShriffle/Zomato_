@@ -13,10 +13,20 @@ class Dish < ApplicationRecord
 
 	before_save :remove_space
 
-	def image_url
-		Rails.application.routes.url_helpers.rails_blob_url(self.image, only_path: true)
- end
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["category_id", "created_at", "dish_type", "id", "name", "price", "updated_at"]
+  end
+
+	def self.ransackable_associations(auth_object = nil)
+    ["cart_items", "category", "image_attachment", "image_blob", "order_items"]
+  end
+
+
+ 	def image_url
+		Rails.application.routes.url_helpers.rails_blob_url(self.image, only_path: true)
+ 	end
+ 
 	private
 	def remove_space
     self.name = name.strip()
