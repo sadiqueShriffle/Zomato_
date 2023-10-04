@@ -1,17 +1,28 @@
 ActiveAdmin.register Category do
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  # permit_params :name, :restaurent_id
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:name, :restaurent_id]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+  filter :name
+
+  index do
+    column :id
+    column :name
+    # Not work as i expected PENDING
+    column 'Dishes' do |category|
+      category.dishes.count
+    end
+    actions
+  end
+
+  show do |category|
+    attributes_table do
+      row :id
+      row :name
+      row :created_at
+      row :updated_at
+      row :dishes_count do |category|
+        category.dishes.count
+      end
+    end
+  end
+
+  permit_params(:name)
 end
