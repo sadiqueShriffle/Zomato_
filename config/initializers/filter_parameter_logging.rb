@@ -6,3 +6,8 @@
 Rails.application.config.filter_parameters += [
   :passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn
 ]
+
+def ransackable_associations(auth_object = nil)
+  Rails.logger.info("WITHIN RANSACK ASSOCIATION")
+  super + %w[impressionable]
+end
