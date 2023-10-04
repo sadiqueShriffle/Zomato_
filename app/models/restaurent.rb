@@ -10,15 +10,6 @@ class Restaurent < ApplicationRecord
 	validates :name, :place,:status,  presence: true
 	validate :owner_only_add_restaurent
 
-
-  # def self.ransackable_attributes(auth_object = nil)
-  #   ["created_at", "id", "name", "place", "status", "updated_at", "user_id"]
-  # end
-
-  # def self.ransackable_associations(auth_object = nil)
-  #   ["categories", "dishes", "user"]
-  # end
-
 	# private
 	def remove_space
 		byebug

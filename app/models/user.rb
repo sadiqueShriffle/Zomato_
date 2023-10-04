@@ -19,16 +19,11 @@ class User < ApplicationRecord
 	validates :name, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message:"Invalid email id!!!!" }
 
+  after_create :create_user_mail
 
-	# def self.ransackable_attributes(auth_object = nil)
-  #   ["created_at", "email", "encrypted_password", "id", "name", "remember_created_at", "reset_password_sent_at", "reset_password_token", "type", "updated_at"]
-  # end
-
-
-  # def self.ransackable_associations(auth_object = nil)
-  #   ["cart", "cart_items", "categories", "dishes", "image_attachment", "image_blob", "order_items", "orders", "restaurents"]
-  # end
-	
+  def create_user_mail
+    UserMailer.with(user: self).welcome_email.deliver_now
+  end
 
 	def remove_space
     self.name = name.strip()

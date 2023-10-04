@@ -3,7 +3,8 @@ class Ability
 
   def initialize(user)
     if user.type == 'Owner'
-      can :manage, :all 
+      can :manage, :all
+      cann
     else
       can :read,Restaurent
       can :read,Category
