@@ -16,7 +16,7 @@ class Cart < ApplicationRecord
 		end
 	end
 
-	
+
 	private
 	def customer_only_add_restaurent
 		unless user.type == "Customer"

@@ -22,7 +22,7 @@ class User < ApplicationRecord
   after_create :create_user_mail
 
   def create_user_mail
-    UserMailer.with(user: self).welcome_email.deliver_now
+    UserMailer.with(user: self).welcome_email.deliver_later
   end
 
 	def remove_space

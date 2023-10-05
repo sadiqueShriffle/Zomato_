@@ -1,18 +1,31 @@
 ActiveAdmin.register Dish do
+  permit_params(:name,:dish_type,:image)
 
   filter :name
 
+  # index do
+  #   column :profile do |dish|
+  #     image_tag(dish.image, size: "50x40") if dish.image.present?
+  #   end
+  #   column :name
+  #   column :dish_type
+  #   column :price
+  #   column :created_at
+  #   column :updated_at
+  #   actions
+  # end
+
   form do |f|
     f.inputs do
-      # attributes_names return array of key
-      # f.semantic_errors *f.object.errors.attribute_names
-      f.input :dish_name
+      f.input :name
+      f.input :dish_type
+      f.input :price
       f.input :category_id
       f.semantic_errors :category
-      f.input :dish_images, as: :file, input_html: { multiple: true }
-    end
+      f.input :dish_image
     f.actions
   end
+end
 
   show do
     attributes_table do

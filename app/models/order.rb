@@ -5,8 +5,6 @@ class Order < ApplicationRecord
 
   before_create :generate_order_id,:calculate_total_amount
 
-
-
   # after_create :create_order_mail
 
   # def create_order_mail
