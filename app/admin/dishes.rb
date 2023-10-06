@@ -1,19 +1,21 @@
 ActiveAdmin.register Dish do
   permit_params(:name,:dish_type,:image)
 
+  menu priority: 4
+
   filter :name
 
-  # index do
-  #   column :profile do |dish|
-  #     image_tag(dish.image, size: "50x40") if dish.image.present?
-  #   end
-  #   column :name
-  #   column :dish_type
-  #   column :price
-  #   column :created_at
-  #   column :updated_at
-  #   actions
-  # end
+  index do
+    column :profile do |dish|
+      image_tag(dish.image, size: "60x40") if dish.image.present?
+    end
+    column :name
+    column :dish_type
+    column :price
+    column :created_at
+    column :updated_at
+    actions
+  end
 
   form do |f|
     f.inputs do

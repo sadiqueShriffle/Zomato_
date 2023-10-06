@@ -1,28 +1,14 @@
 ActiveAdmin.register Category do
 
-  filter :name
+  menu priority: 3
 
-  index do
-    column :id
-    column :name
-    # Not work as i expected PENDING
-    column 'Dishes' do |category|
-      category.dishes.count
+
+  form do |f|
+    f.inputs do
+      f.input :email
+      f.input :password
+      f.input :password_confirmation
     end
-    actions
+    f.actions
   end
-
-  show do |category|
-    attributes_table do
-      row :id
-      row :name
-      row :created_at
-      row :updated_at
-      row :dishes_count do |category|
-        category.dishes.count
-      end
-    end
-  end
-
-  permit_params(:name)
 end

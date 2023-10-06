@@ -1,5 +1,7 @@
 ActiveAdmin.register User do
 
+  menu priority: 1
+
   permit_params(:name,:type, :email, :password, :password_confirmation)
 
   filter :name

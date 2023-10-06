@@ -40,7 +40,6 @@ class OrdersController < ApplicationController
   def destroy
     @order.destroy
     redirect_to orders_path
-    # render json: "Order deleted Successfully", status:200
   end
 
   private

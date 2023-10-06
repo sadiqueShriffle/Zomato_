@@ -1,5 +1,6 @@
 ActiveAdmin.register Restaurent do
   # includes :categories, :dishes
+  menu priority: 2
   permit_params(:name,:place, :status)
 
 
@@ -15,6 +16,18 @@ ActiveAdmin.register Restaurent do
     column :updated_at
     actions
   end
+
+  # controller do
+  #   def update
+  #    # You can put your send email code over here 
+  #    super do |success, failure| 
+  #      block.call(success, failure) if block
+  #      failure.html { render :edit }
+  #    end
+
+  #   end
+ 
+  # end
 
 
 end

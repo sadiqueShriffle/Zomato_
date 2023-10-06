@@ -1,8 +1,5 @@
 class RestaurentsController < ApplicationController
 
-	# before_action :customer_check , only: :search
-	# before_action :owner_check, except: [:index,:show]
-
 	before_action :set_values , only: [:show,:update ,:destroy,:edit] 
 
 	def index
@@ -22,8 +19,6 @@ class RestaurentsController < ApplicationController
 
 
 	def show 
-		# if current_user.test?(current_user.restaurents.first.category.first)
-		# end
 		if current_user.owner?
 			@restaurent = current_user.restaurents.includes(categories: :dishes).find(params[:id]) 
 		else	
@@ -59,8 +54,6 @@ class RestaurentsController < ApplicationController
 	def destroy
 		if @restaurent.destroy
 			redirect_to root_path
-		# return render json: {message: " Restaurent Deleted successfully!!", data:@restaurent} 
-		# render json: {errors: @restaurent.errors.full_messages}, status: :unprocessable_entity
 		else
 			@restaurent
 		end
