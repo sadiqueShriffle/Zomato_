@@ -10,6 +10,12 @@ module Zomato
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+
+    config.generators do |g|
+      g.test_framework :rspec
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
+    end
+
     # config.api_only = true
 
     # config.middleware.use ActionDispatch::Session::CookieStore

@@ -66,7 +66,7 @@ group :development do
   # gem "spring"
   gem "letter_opener"
 
-  gem "byebug"
+  # gem "byebug"
   gem 'active_model_serializers'
   gem 'rubocop'
   gem "cancan"
@@ -80,10 +80,20 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem "shoulda-matchers", '~> 5.0'
 end
 
 gem "devise", "~> 4.9"
 gem 'activeadmin'
 gem 'arctic_admin'
+# gem 'faker'
+
+
+group :development, :test do
+  gem 'rspec-rails', '~> 6.0.0'
+  gem 'factory_bot_rails'
+  gem "byebug"
+  gem 'faker'
+end
 
 

@@ -1,9 +1,11 @@
 class Cart < ApplicationRecord
+	# belongs_to :customer,  foreign_key: 'user_id'
+
 	belongs_to :user
 	has_many :cart_items, dependent: :destroy
 	has_many :dishes, through: :cart_items
 
-	validate :customer_only_add_restaurent
+	# validate :customer_only_add_restaurent
 
 	def check_unique_restaurent?(restaurent)
 		r_id = restaurent.category.restaurent_id
