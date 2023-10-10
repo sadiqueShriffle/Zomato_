@@ -29,7 +29,7 @@ class RestaurentsController < ApplicationController
 	def create
 		@restaurent = current_user.restaurents.new(restaurent_params)
 		if @restaurent.save
-			redirect_to root_path
+			redirect_to root_path , status: :created
 		else
 			render json: 'Error While Creating Restaurent', status: :unprocessable_entity
 		end

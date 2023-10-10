@@ -5,6 +5,10 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
 	has_many :dishes , through: :order_items
 
+  validates :shipping_address, presence: :true 
+  validates :total_amount, numericality: { grater_than_or_equal_to: 1}
+
+
   before_create :generate_order_id,:calculate_total_amount
 
   # after_create :create_order_mail

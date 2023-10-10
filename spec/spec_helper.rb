@@ -14,6 +14,10 @@
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
+require 'simplecov'
+SimpleCov.start
+
+
 RSpec.configure do |config|
 
   # rspec-expectations config goes here. You can use an alternate
@@ -93,4 +97,7 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+config.after(:suite) do 
+SimpleCov.result.format!  
+end
 end
