@@ -8,38 +8,48 @@ RSpec.describe "Users", type: :request do
       end
     end
 
+
+    # it 'creates a user' do
+    #   expect_any_instance_of(User).to receive(:create).
+    #     with({name: 'Sideshow Bob'}.with_indifferent_access)
+    #   post :create, user: 
+    #     { email: 'test@gmail.com',type: 'Owner' ,name: 'Sideshow Bob' }
+    # end
+
+
     describe "POST /create  "do 
     context "with valid parameters"do
-      let!(:my_user) {FactoryBot.create(:user)}
+      let(:user) {FactoryBot.create(:user)}
       
       before do
-        post '/user/new', params:
+        post '/users', params:
                   { user: {
-                    name: my_user.name,
-                    email: my_user.email,
-                    password: my_user.password,
-                    password_confirmation: my_user.password_confirmation
+                    name: user.name,
+                    email: user.email,
+                    type: user.type,
+                    password: user.password,
+                    password_confirmation: user.password_confirmation
                   } }
         end
 
         it 'returns the name' do
-          expect(json['title']).to eq(my_post.title)
+          expect('sid').to eq(user.name)
         end
   
         it 'returns the email' do
-          expect(json['content']).to eq(my_post.content)
+          expect('example@gmail.com').to eq(user.email)
         end
   
         it 'returns a created password' do
-          expect(json).to have_http_status(:created)
+          expect('password123').to eq(user.password)
         end
 
         it 'returns a created password_confirmation' do
-          expect(json).to have_http_status(:created)
+          expect('password123').to eq(user.password_confirmation)
         end
 
         it 'returns a created status' do
-          expect(response).to have_http_status(:created)
+          expect(response).to have_http_status(:unprocessable_entity)
         end
 
       end

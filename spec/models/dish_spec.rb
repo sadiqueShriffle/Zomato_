@@ -30,4 +30,11 @@ RSpec.describe Dish, type: :model do
     it {should belong_to(:category)}
   end
 
+  describe '#name, dish_type and price presnese validations' do
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:price) }
+    it { is_expected.to validate_presence_of(:dish_type)}
+  end
+
+
 end

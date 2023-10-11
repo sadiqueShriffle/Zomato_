@@ -2,12 +2,11 @@ require 'faker'
 
 FactoryBot.define do
 factory :user do
-    name { Faker::Name.unique.name }
-    email { Faker::Internet.unique.email }
+    name { 'sid' }
+    email { 'example@gmail.com' }
     password { 'password123' }
     password_confirmation { 'password123' }
     image { nil }
-    type { 'customer' } # Adjust based on your user types
-
+    type { 'Owner' }
   end
 end

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Restaurents", type: :request do
+  
   describe "GET /index" do
       it "renders the index template of restaurent" do
       get '/restaurents'
@@ -12,11 +13,10 @@ RSpec.describe "Restaurents", type: :request do
       get '/restaurents/:id'
     end
   end
-
-
+  
   describe "POST /create  "do 
     context "with valid parameters"do
-      let!(:restaurent) {FactoryBot.create(:restaurent)}
+      let(:restaurent) {FactoryBot.create(:restaurent)}
       
       before do
         post '/restaurents', params:
@@ -46,11 +46,5 @@ RSpec.describe "Restaurents", type: :request do
       end
     end
 
-    # context "Get /New" do
-    #   it "should render new page" do
-    #     get new_restaurent_path
-    #     expect(response).to render_template :new
-    #   end
-    # end
 
 end

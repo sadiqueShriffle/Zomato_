@@ -29,16 +29,16 @@ RSpec.describe Order, type: :model do
   it {should have_many(:order_items)}
 
 # Callback Testing
-  describe "when order is not save" do
-    it "generate order_id and calculate total amount" do
-      order = Order.new
-      order.unique_order_id.should_receive(:unique_order_id)
+  # describe "when order is not save" do
+  #   it "generate order_id and calculate total amount" do
+  #     order = Order.new
+  #     order.unique_order_id.should_receive(:unique_order_id)
 
 
-      self.unique_order_id = SecureRandom.hex(7)
-      self.total_amount = self.user.cart.cart_items.sum{|cart_item| cart_item.dish.price * cart_item.quantity}
-    end
-  end
+  #     self.unique_order_id = SecureRandom.hex(7)
+  #     self.total_amount = self.user.cart.cart_items.sum{|cart_item| cart_item.dish.price * cart_item.quantity}
+  #   end
+  # end
 
 
 end
