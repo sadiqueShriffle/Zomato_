@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Cart, type: :model do
+  subject do
+    FactoryBot.create(:cart)
+  end
 
-subject{
-  FactoryBot.create(:cart)
-  }
-
-  it {should belong_to(:user)}
-
+  it { should belong_to(:user) }
 end

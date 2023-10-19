@@ -1,7 +1,8 @@
-class CategoriesController < ApplicationController
+# frozen_string_literal: true
 
-  before_action :owner_check, except: [:index,:show]
-  before_action :set_category, only: %i[ edit update destroy ]
+class CategoriesController < ApplicationController
+  # before_action :owner_check, except: [:index,:show]
+  # before_action :set_category, only: %i[ edit update destroy ]
 
   # GET /categories or /categories.json
   def index
@@ -10,19 +11,17 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1 or /categories/1.json
   def show
-    @category= Category.find(params[:id])
+    @category = Category.find(params[:id])
   end
 
   # GET /categories/new
   def new
     @category = Category.new
     @restaurent = Restaurent.find(params[:restaurent_id])
-     
   end
 
   # GET /categories/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /categories or /categories.json
   def create
@@ -30,7 +29,9 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       if @category.save
         # format.html { redirect_to category_url(@category), notice: "Category was successfully created." }
-        format.html {redirect_to restaurent_categories_url(@category.restaurent_id), notice: 'Category was Successfully Created' }
+        format.html do
+          redirect_to restaurent_categories_url(@category.restaurent_id), notice: 'Category was Successfully Created'
+        end
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,7 +44,7 @@ class CategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @category.update(category_params)
-        format.html { redirect_to category_url(@category), notice: "Category was successfully updated." }
+        format.html { redirect_to category_url(@category), notice: 'Category was successfully updated.' }
         format.json { render :show, status: :ok, location: @category }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,18 +59,18 @@ class CategoriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_category
-      if current_user.owner?
-        @category = current_user.categories.find(params[:id])
-      else
-        @category = Category.find(params[:id])
-      end
-    end
 
-    # Only allow a list of trusted parameters through.
-    def category_params
-      params.permit([:name])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_category
+    @category = if current_user.owner?
+                  current_user.categories.find(params[:id])
+                else
+                  Category.find(params[:id])
+                end
+  end
 
+  # Only allow a list of trusted parameters through.
+  def category_params
+    params.call(:category).permit([:name])
+  end
 end

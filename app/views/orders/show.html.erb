@@ -8,7 +8,8 @@
 
 <div>
   <%= link_to "Back to orders", orders_path %> |
-  <%= button_to "Destroy this order", @order, method: :delete %>
+  <%= button_to "Destroy this order", @order, method: :delete, data: {turbo_method: :delete, turbo_confirm: "Are You sure"} %>
+
 </div>
 
 

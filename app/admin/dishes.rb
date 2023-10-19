@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register Dish do
-  permit_params(:name,:dish_type,:image)
+  permit_params(:name, :dish_type, :image)
 
   menu priority: 4
 
@@ -7,7 +9,7 @@ ActiveAdmin.register Dish do
 
   index do
     column :profile do |dish|
-      image_tag(dish.image, size: "60x40") if dish.image.present?
+      image_tag(dish.image, size: '60x40') if dish.image.present?
     end
     column :name
     column :dish_type
@@ -25,19 +27,18 @@ ActiveAdmin.register Dish do
       f.input :category_id
       f.semantic_errors :category
       f.input :dish_image
-    f.actions
-  end
-end
-
-  show do
-    attributes_table do
-      row :name 
-      row :dish_type
-      row :price
-      row :image do |ad|
-        image_tag ad.image.url,width:150,height:120
-      end
+      f.actions
     end
   end
 
+  show do
+    attributes_table do
+      row :name
+      row :dish_type
+      row :price
+      row :image do |ad|
+        image_tag ad.image.url, width: 150, height: 120
+      end
+    end
+  end
 end

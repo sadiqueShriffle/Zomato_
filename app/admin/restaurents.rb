@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register Restaurent do
   # includes :categories, :dishes
   menu priority: 2
-  permit_params(:name,:place, :status)
-
+  permit_params(:name, :place, :status)
 
   index do
     # column :profile do |dish|
@@ -19,15 +20,13 @@ ActiveAdmin.register Restaurent do
 
   # controller do
   #   def update
-  #    # You can put your send email code over here 
-  #    super do |success, failure| 
+  #    # You can put your send email code over here
+  #    super do |success, failure|
   #      block.call(success, failure) if block
   #      failure.html { render :edit }
   #    end
 
   #   end
- 
+
   # end
-
-
 end

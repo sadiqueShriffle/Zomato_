@@ -63,8 +63,8 @@
 
     <%=link_to "Home",root_path%>
 
-    <a href="#news">News</a>
-    <a href="#contact">Contact</a>
+    <!-- <a href="#search">Search</a> -->
+    <!-- <a href="#contact">Contact</a> -->
 
     <div class="topnav-right">
       <a href="#search">Search</a>
@@ -83,3 +83,14 @@
 
   </body>
 </html>
+
+
+<!-- <body>
+  <div class="container">
+    <%= form_with url: "/search_movie", method: :post do |form| %>
+      <label for="name">Name</label>
+      <%= form.text_field :name, id: "name" %><br><br>
+      <%= form.submit %><br>
+    <% end %>
+  </div>
+</body> -->

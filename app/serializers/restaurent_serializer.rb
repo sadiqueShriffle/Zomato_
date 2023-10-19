@@ -1,6 +1,8 @@
-class RestaurentSerializer < ActiveModel::Serializer
-  attributes :id ,:name, :place ,:status 
+# frozen_string_literal: true
 
-   has_many :categories
+class RestaurentSerializer < ActiveModel::Serializer
+  attributes :id, :name, :place, :status
+
+  has_many :categories
   # has_many :dishes
 end

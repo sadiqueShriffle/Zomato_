@@ -1,7 +1,8 @@
-class UserMailer < ApplicationMailer
+# frozen_string_literal: true
 
+class UserMailer < ApplicationMailer
   def welcome_email
     @user = params[:user]
-    mail(to: @user.email, subject: "Welcome !!")
+    mail(to: @user.email, subject: 'Welcome !!')
   end
 end

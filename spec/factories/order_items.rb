@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
-  factory :order_item  do
+  factory :order_item do
     # quantity {"5"}
-    dish 
+    dish
     order
   end
 end

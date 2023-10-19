@@ -1,8 +1,9 @@
-ActiveAdmin.register User do
+# frozen_string_literal: true
 
+ActiveAdmin.register User do
   menu priority: 1
 
-  permit_params(:name,:type, :email, :password, :password_confirmation)
+  permit_params(:name, :type, :email, :password, :password_confirmation)
 
   filter :name
   filter :email
@@ -10,7 +11,7 @@ ActiveAdmin.register User do
 
   form do |f|
     f.inputs do
-      f.input :type, as: :select, collection: ['Owner', 'Customer']
+      f.input :type, as: :select, collection: %w[Owner Customer]
       f.input :name
       f.input :email
       f.input :password
@@ -32,7 +33,7 @@ ActiveAdmin.register User do
     actions
   end
 
-  show do |user|
+  show do |_user|
     attributes_table do
       row :type
       row :id
@@ -42,5 +43,4 @@ ActiveAdmin.register User do
       row :updated_at
     end
   end
-  
 end

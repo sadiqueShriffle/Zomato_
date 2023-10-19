@@ -1,5 +1,6 @@
-ActiveAdmin.register CartItem do
+# frozen_string_literal: true
 
+ActiveAdmin.register CartItem do
   index do
     column :dish
     column :cart
@@ -9,6 +10,4 @@ ActiveAdmin.register CartItem do
     column :updated_at
     actions
   end
-
-  
 end

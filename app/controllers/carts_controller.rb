@@ -1,11 +1,11 @@
-class CartsController < ApplicationController
+# frozen_string_literal: true
 
+class CartsController < ApplicationController
   # before_action :set_cart, only: [:index]
-  # before_action :set_cart_item ,only: %i[edit update destroy]
+  before_action :set_cart_item, only: %i[edit update destroy]
 
   # before_action :find_id ,only: %i[create]
 
-  
   def index
     @carts = current_user.cart.cart_items
   end
@@ -20,29 +20,29 @@ class CartsController < ApplicationController
         quantity: cart_item.quantity
       }
     end
-      # render json: cart_items_data
-  end
-  
-  def new
-    id = params[:format].to_i
-    @dish=Dish.find(id)
+    # render json: cart_items_data
   end
 
-    def create
-      dish=Dish.find(params[:dish_id])
-      
+  def new
+    id = params[:format].to_i
+    @dish = Dish.find(id)
+  end
+
+  def create
+    dish = Dish.find(params[:dish_id])
+
     if current_user.cart.check_unique_restaurent?(dish)
       current_user.cart.cart_items.destroy_all
       add_cart = current_user.cart.cart_items.new(cart_item_params)
       notice_message = 'Cart items updated with a new restaurant.'
     else
-      add_cart=current_user.cart.cart_items.new(cart_item_params)
+      add_cart = current_user.cart.cart_items.new(cart_item_params)
       notice_message = 'Dish added to cart successfully.'
     end
 
-     if add_cart.save
-      redirect_to carts_path , notice: notice_message
-     end
+    return unless add_cart.save
+
+    redirect_to carts_path, notice: notice_message
   end
 
   # def create
@@ -53,23 +53,21 @@ class CartsController < ApplicationController
   #   end
   # end
 
-
-  def edit
-  end
+  def edit; end
 
   def update
     @cart_item = current_user.cart.cart_items.find(params[:cart_item_id])
     if @cart_item.update(cart_item_params)
-      render json: "Item Updated Successfully",status:200
+      render json: 'Item Updated Successfully', status: 200
     else
       render json: @cart_item.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    if @cart_item.destroy
-      redirect_to root_path
-    end
+    return unless @cart_item.destroy
+
+    redirect_to carts_path
   end
 
   def clear_cart
@@ -80,7 +78,7 @@ class CartsController < ApplicationController
   private
 
   def set_cart
-    @cart=current_user.create_cart unless current_user.cart.present?  
+    @cart = current_user.create_cart unless current_user.cart.present?
   end
 
   def set_cart_item
@@ -88,24 +86,22 @@ class CartsController < ApplicationController
   end
 
   def cart_item_params
-    params.permit(:dish_id,  :quantity)
+    params.permit(:dish_id, :quantity)
   end
-
 end
 
-
-  # def create
-  #   dish=Dish.find(params[:dish_id])
-  #   byebug
-  #   if current_user.cart.check_unique_restaurent?(dish)
-  #     clear_cart
-  #     add_cart = current_user.cart.cart_items.new(cart_item_params)
-  #     notice_message = 'Cart items updated with a new restaurant.'
-  #   else
-  #     add_cart=current_user.cart.cart_items.new(cart_item_params)
-  #     notice_message = 'Dish added to cart successfully.'
-  #   end
-  #   if add_cart.save
-  #     redirect_to carts_path , notice: notice_message
-  #   end
-  # end
+# def create
+#   dish=Dish.find(params[:dish_id])
+#   byebug
+#   if current_user.cart.check_unique_restaurent?(dish)
+#     clear_cart
+#     add_cart = current_user.cart.cart_items.new(cart_item_params)
+#     notice_message = 'Cart items updated with a new restaurant.'
+#   else
+#     add_cart=current_user.cart.cart_items.new(cart_item_params)
+#     notice_message = 'Dish added to cart successfully.'
+#   end
+#   if add_cart.save
+#     redirect_to carts_path , notice: notice_message
+#   end
+# end

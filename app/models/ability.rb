@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Ability
   include CanCan::Ability
 
@@ -6,14 +8,14 @@ class Ability
       can :manage, :all
       cann
     else
-      can :read,Restaurent
-      can :read,Category
-      can :read,Dish
-      can :create,Cart 
-      can :create,CartItem
-      can :create,Order
-      can :create,OrderItem
-      can :read,Order 
+      can :read, Restaurent
+      can :read, Category
+      can :read, Dish
+      can :create, Cart
+      can :create, CartItem
+      can :create, Order
+      can :create, OrderItem
+      can :read, Order
     end
   end
 end

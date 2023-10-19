@@ -1,12 +1,14 @@
-Rails.application.routes.draw  do
+# frozen_string_literal: true
 
+Rails.application.routes.draw do
   root 'restaurents#index'
 
-  devise_for :admin_users, ActiveAdmin::Devise.config 
+  devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
   devise_for :users
 
+  # resources :session, only: [:index]
   # resources :admin
 
   resource :user, except: :create
@@ -17,15 +19,15 @@ Rails.application.routes.draw  do
   # resource :user,  except: :create
 
   # Restaurent routes
-  get '/restaurent/search' , to: "restaurents#search_restaurent"
-  resources :restaurents do 
-    resources :categories ,shallow: true  do
-      resources :dishes , shallow: true
+  get '/restaurent/search', to: 'restaurents#search_restaurent'
+  resources :restaurents do
+    resources :categories, shallow: true do
+      resources :dishes, shallow: true
     end
   end
 
   resources :categories, only: [:create]
-  resources :dishes, only: [:create]
+  resources :dishes, only: %i[create index]
   # get '/categories/:restaurent_id' to: "categories#create"
 
   # resources :categories do
@@ -39,10 +41,9 @@ Rails.application.routes.draw  do
 
   # Cart Routes
   # post '/add_to_cart' , to: "carts#add_item"
-  resources  :carts
-  get '/clearcart', to: "carts#clear_cart"
+  resources :carts
+  get '/clearcart', to: 'carts#clear_cart'
 
   # Orders Routes
   resources :orders
-  
 end
