@@ -3,8 +3,9 @@
 class MyFirstJob
   include Sidekiq::Job
 
-  def perform(*_args)
-    UserMailer.welcome_email(user)
-    # puts "I am #{name}, running my first job at #{age}"
+  def perform(email)
+    byebug  
+    UserMailer.welcome_email(email)
+    # puts "I am , running my first job at #{Sadique} "
   end
 end

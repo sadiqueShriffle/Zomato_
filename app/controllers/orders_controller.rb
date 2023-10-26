@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
       redirect_to orders_path
     else
       # flash[:alert] = "Please Add Items to place Order please"
-      redirect_to orders_path, notice: 'Please Add Items to place Order please'
+      redirect_to orders_path, notice: 'Please Add Items to place Order'
       # render json: order.errors, status: :unprocessable_entity
     end
   end

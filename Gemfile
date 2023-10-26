@@ -30,7 +30,8 @@ gem 'stimulus-rails'
 gem 'jbuilder'
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 4.0'
+gem 'redis', '~> 4.8.1'
+gem 'sidekiq', '~> 6.5.9'
 gem 'sidekiq-cron'
 # gem 'will_paginate', '~> 4.0'
 
@@ -90,7 +91,6 @@ end
 gem 'activeadmin'
 gem 'arctic_admin'
 gem 'devise', '~> 4.9'
-# gem 'faker'
 
 group :development, :test do
   gem 'byebug'
@@ -99,4 +99,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 6.0.0'
 end
 
-gem 'sidekiq', '~> 7.1'
+
+# gem 'sidekiq-client-cli'
+# gem 'redis-client'
+gem 'turbolinks', '~> 5'
+# gem 'webpacker', '~> 4.1'
