@@ -5,7 +5,7 @@ class MyFirstJob
 
   def perform(email)
     byebug  
-    UserMailer.welcome_email(email)
-    # puts "I am , running my first job at #{Sadique} "
+    # UserMailer.welcome_email(email)
+    puts "I am , running my first job at #{email} "
   end
 end

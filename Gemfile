@@ -30,9 +30,9 @@ gem 'stimulus-rails'
 gem 'jbuilder'
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 4.8.1'
-gem 'sidekiq', '~> 6.5.9'
-gem 'sidekiq-cron'
+gem 'redis'
+gem 'sidekiq'
+# gem 'sidekiq-cron'
 # gem 'will_paginate', '~> 4.0'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
