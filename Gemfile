@@ -35,9 +35,6 @@ gem 'sidekiq'
 # gem 'sidekiq-cron'
 # gem 'will_paginate', '~> 4.0'
 
-# Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-# gem "kredis"
-
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
@@ -99,8 +96,9 @@ group :development, :test do
   gem 'rspec-rails', '~> 6.0.0'
 end
 
-
-# gem 'sidekiq-client-cli'
-# gem 'redis-client'
 gem 'turbolinks', '~> 5'
-# gem 'webpacker', '~> 4.1'
+
+gem "omniauth-google-oauth2"
+
+gem "omniauth-rails_csrf_protection"
+gem "figaro"
